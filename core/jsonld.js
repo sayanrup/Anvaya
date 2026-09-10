@@ -28,18 +28,23 @@ function buildJsonLd(state, params) {
     "areaServed": APPROVED_CONTENT.cities
   };
   if (tiers.length) {
-    service.offers = tiers.map(t => ({
-      "@type": "Offer",
-      "name": `${t.label} full-home interiors`,
-      "priceCurrency": t.currency,
-      "priceSpecification": {
+    service.offers = tiers.map(t => {
+      const priceSpecification = {
         "@type": "PriceSpecification",
         "minPrice": t.low,
-        "maxPrice": t.high,
         "priceCurrency": t.currency
-      },
-      "description": APPROVED_CONTENT.priceDisclaimer
-    }));
+      };
+      // Open-ended tiers ("₹12L onwards") carry no maxPrice — there is no
+      // approved upper bound to report, so none is invented for schema.org.
+      if (!t.openEnded) priceSpecification.maxPrice = t.high;
+      return {
+        "@type": "Offer",
+        "name": `${t.label} full-home interiors`,
+        "priceCurrency": t.currency,
+        "priceSpecification": priceSpecification,
+        "description": APPROVED_CONTENT.priceDisclaimer
+      };
+    });
   }
   const svc = APPROVED_CONTENT.serviceability;
   if ((state === 'delivery_check' || state === 'delivery_check_needs_city') && params && params.city && canRender(svc)) {

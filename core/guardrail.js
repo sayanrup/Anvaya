@@ -44,7 +44,10 @@ function canRender(block) {
   //    A range-shaped price claim (lowText/highText, e.g. a price tier)
   //    carries its number as a pair rather than a sentence — check that
   //    shape first, since neither end is named `text`/`disclaimer`/etc.
-  if (block.lowText || block.highText) {
+  //    An `openEnded` tier ("₹12L onwards") only needs its lowText: no
+  //    upper bound exists to require, and none gets invented to fill it.
+  if (block.lowText || block.highText || block.openEnded) {
+    if (block.openEnded) return !!block.lowText;
     return !!(block.lowText && block.highText);
   }
   const text = block.text || block.sentence || block.a || block.yesTemplate || block.noTemplate || block.disclaimer;

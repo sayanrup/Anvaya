@@ -4,10 +4,12 @@
 const CONTENT_CTAS = {
   ctas: {
     primary:      { label: "Get my exact estimate", href: "#estimate" },
-    // A distinct, shorter label for the sticky header's compact pill
-    // button, which has too little width for the full primary label at
-    // 360px — same destination, same underlying action.
-    headerCta:    { label: "Get estimate",           href: "#estimate" },
+    // The sticky header's compact pill button — same destination as
+    // `primary`, distinct wording per the site owner's request. Kept as
+    // its own entry (not reused text) since the header has less width
+    // available at 360px; styles.css shrinks the pill's type slightly to
+    // fit it rather than shortening the label.
+    headerCta:    { label: "Get Free Estimates",     href: "#estimate" },
     secondary:    { label: "Talk to a designer",     href: "#estimate" },
     calculate:    { label: "Calculate my cost",      href: "#estimate" },
     consultation: { label: "Book a free design consultation", href: "#estimate" },

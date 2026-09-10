@@ -46,10 +46,11 @@ refits every v2 component into it:
 
 ### On the photography
 
-The five photos in `assets/photos/` (resized/compressed from the
-reference repo's originals) are concept interior renders from that same
-author's other project — not photographs of an actual completed Anvaya
-installation, since no such project exists for this demo brand. They're
+The 13 photos in `assets/photos/` (1 hero + 3 per gallery space,
+resized/compressed from the reference repo's originals) are concept
+interior renders from that same author's other project — not photographs
+of an actual completed Anvaya installation, since no such project exists
+for this demo brand. They're
 real, high-quality images (not the CSS illustrations v2 shipped with),
 just not verified as "this specific home was built by Anvaya" — the
 gallery's kicker copy ("Nothing here is off the shelf...") describes the
@@ -66,6 +67,64 @@ injected from a small inline bootstrap script in `index.html`, not a
 plain `<link>`, specifically so a `speed=slow` visitor never fires that
 request at all (see "Speed handling" below) rather than merely not
 waiting on it.
+
+## Design direction (v4): sync + polish pass
+
+A round of feedback on v3 plus a fresh sync with the reference repo
+(which had, in the meantime, gained more photography, per-space image
+carousels, and its own `content-library.ts`/`personalize.ts` — a parallel
+build of this same idea, independently arriving at the same "one
+approved content object, one guardrail" shape):
+
+- **Real logo** — the header/favicon mark is now `assets/logo.png`,
+  cropped and resized from the reference repo's own logo asset, replacing
+  the earlier placeholder "A" monogram badge.
+- **Gallery synced to per-space carousels** — `content/gallery.js` is now
+  four spaces (Kitchen, Bedroom, Wardrobe, Studies & Storage), each with
+  3 real photos in a swipeable, infinite-looping carousel with dot
+  indicators (`sections/gallery.js`), ported from the reference's own
+  "Instagram-style" `ImageCarousel` React component to plain DOM events.
+  Under `speed=slow` no gallery image loads at all — matching the
+  reference's own `{!lowBandwidth && <ImageCarousel/>}` behaviour — the
+  space still shows its title and copy, just no photo weight. The
+  earlier category-pill filter is gone; each space is now its own card.
+- **New pricing figures, synced with the reference's own update** —
+  `content/pricing.js` moved from a 2BHK/3BHK/4BHK set to 1BHK/2BHK/3BHK/
+  Villa, matching the reference project's own revised price ballparks.
+  The hero's headline price changed from a ₹7.5L–₹13.5L range to
+  **"Starting from just ₹3.5L"** — reading the 2BHK tier's low end
+  directly (`getPriceTier('2bhk')`) rather than a number typed in the
+  hero's own content, specifically so the headline figure can never
+  disagree with the 2BHK row in the pricing table below it. Villa is
+  open-ended ("₹12L onwards," matching the reference's own figure exactly)
+  — `canRender()` and every renderer treat an `openEnded` tier as needing
+  only a lower bound; no upper figure is invented to complete a range
+  that was never approved.
+- **Reviews restyled with package info**, styled after a familiar
+  Google-reviews card layout (circular initial avatar, star row, name) —
+  plus which price-tier package the reviewer took, resolved via
+  `getPriceTier()` rather than a second typed copy of the label. This is
+  a layout choice, not a data-source claim: the section says plainly
+  ("Illustrative reviews for this demo — swap in real Google Business
+  Profile reviews once available") rather than asserting these are real
+  Google-sourced reviews, which isn't true for a demo brand with no real
+  transactions. Swap in a real Google Reviews widget/API once real
+  reviews exist; nothing else on the page needs to change.
+- **"Customize as per your need"** — a new mid-page section
+  (`content/customize.js` / `sections/customize.js`) whose CTA re-enters
+  the page with `intent=unknown`, the exact signal `determineRule()`
+  already treats as genuinely ambiguous. It's a working preview of "build
+  variations as per intent" (see below): the capture mechanism already
+  exists, this section just gives a visitor already on the default page
+  a way to opt into it.
+- **A more concise "How it works"** — the four steps moved from a long
+  vertical stack to a compact 2×2 grid with tighter type and spacing.
+- **Header CTA** — "Get Free Estimates" (`ctas.headerCta`), a dedicated,
+  shorter-styled label distinct from the primary CTA, sized to fit the
+  compact header pill at 360px.
+- **This page is the default/organic template.** Explicit per-intent
+  *pages* (as opposed to the existing per-intent composition *within*
+  this one page) are the next phase of work, not implemented here.
 
 ## Design direction (v2): information architecture
 
@@ -187,16 +246,17 @@ just organised into files that are easy to find and edit individually).
 |---|---|
 | `index.html` | Page shell: `<head>`, static header markup, `<main id="app">` (filled by JS), footer, and the `<script>`/`<link>` includes, in load order. |
 | `styles.css` | Every visual rule on the page. |
-| `assets/logo.svg` | The Anvaya logo mark. |
-| `assets/photos/*.jpg` | Real interior photography — see "On the photography." |
+| `assets/logo.png` | The Anvaya logo mark (from the reference repo's own logo asset). |
+| `assets/photos/*.jpg` | Real interior photography, 3 per gallery space + 1 hero — see "On the photography." |
 | `docs/AI-PM-Writeup.md` | The graded write-up for this exercise. |
 | **`content/`** | | |
 | `content/brand.js` | Who Anvaya is (name, legal name, URL, description). |
 | `content/nav.js` | Header quick-jump links (Spaces / How it works / Pricing / Stories / FAQs). |
 | `content/ctas.js` | Every button label on the site — one primary proposition, reused, plus a shorter `headerCta` variant for the compact header pill. |
 | `content/hero.js` | Default/organic first-screen copy + hero photo. |
-| `content/pricing.js` | **The only place price numbers are typed** — 2BHK/3BHK/4BHK tiers, feature bullets, + the shared disclaimer. |
-| `content/gallery.js` | Gallery categories + project cards (real photos, illustration-backed fallback). |
+| `content/pricing.js` | **The only place price numbers are typed** — 1BHK/2BHK/3BHK/Villa tiers (Villa open-ended), feature bullets, + the shared disclaimer. |
+| `content/gallery.js` | Four spaces, each with 3 real photos for the per-card carousel (illustration-backed fallback). |
+| `content/customize.js` | "Customize as per your need" copy — its CTA re-enters the intent-capture flow. |
 | `content/how-it-works.js` | The four-step process. |
 | `content/commitments.js` | "What Anvaya commits to" (used by the compare lead and the trust-bar chips). |
 | `content/serviceability.js` | The 40-city list, the city-alias map, and the yes/no templates. |
@@ -207,7 +267,7 @@ just organised into files that are easy to find and edit individually).
 | `content/generic.js` | Last-resort copy if the hero's own content is somehow missing. |
 | `content/key-facts.js` | Quotable declarative sentences for the machine-readable layer. |
 | `content/faq.js` | FAQ entries. |
-| `content/reviews.js` | Customer review quotes. |
+| `content/reviews.js` | Customer review quotes, each tagged with a `tier` id so the card can show which package they took. |
 | `content/index.js` | Merges every fragment above into the one frozen `APPROVED_CONTENT`. Loads last among content files. |
 | **`core/`** | | |
 | `core/guardrail.js` | `canRender()` and the approved-block registry. |
@@ -220,11 +280,12 @@ just organised into files that are easy to find and edit individually).
 | `sections/hero.js` | The default/cost full-bleed photo hero + the last-resort safe fallback. |
 | `sections/lead.js` | The compare / delivery_check / capture / city-capture lead blocks. |
 | `sections/trust-bar.js` | The icon + label + sub-label trust strip under the hero. |
-| `sections/gallery.js` | "See what we build" + the category filter. |
-| `sections/pricing-tiers.js` | The 2BHK/3BHK/4BHK feature-card pricing table, with the 3BHK marked "Most chosen." |
-| `sections/how-it-works.js` | The dark four-step process section. |
+| `sections/gallery.js` | "Every room, measured for your walls" — four space cards, each with its own infinite-loop image carousel. |
+| `sections/customize.js` | The "Customize as per your need" bridge into the capture flow. |
+| `sections/pricing-tiers.js` | The 1BHK/2BHK/3BHK/Villa feature-card pricing table, with the 3BHK marked "Most chosen." |
+| `sections/how-it-works.js` | The dark, compact (2×2 grid) four-step process section. |
 | `sections/key-facts.js` | The collapsed "In detail" quotable facts. |
-| `sections/reviews.js` | Review cards. |
+| `sections/reviews.js` | Review cards — avatar, stars, package taken, styled after a Google-reviews look (not a real Google data source). |
 | `sections/virtual-tour.js` | The demoted drag-to-pan tour. |
 | `sections/faq.js` | The FAQ accordion. |
 | `sections/consult-form.js` | The real (client-side-only) enquiry form. |
@@ -345,11 +406,14 @@ doesn't execute JavaScript sees the hand-authored default-state snapshot
 `speed=slow`: skips the Google Fonts request entirely (an inline
 bootstrap script in `index.html` only injects the `<link>` when
 `speed !== 'slow'`, falling back to the system font stack instead — not
-just "don't wait on it," the request never fires), disables all CSS
-transitions/animations, and skips the 15-second engagement nudge. Photos
-are already resized/compressed (see `assets/photos/`) and there's no
-other external request either way, so this covers everything actually
-heavy on the page.
+just "don't wait on it," the request never fires), skips every gallery
+photo entirely (`sections/gallery.js` — the space still shows its title
+and copy, just no image), disables all CSS transitions/animations, and
+skips the 15-second engagement nudge. The hero photo and review avatars
+still load (they're single, already-compressed images), but the
+12-photo, 4-carousel gallery is the one genuinely heavy thing on this
+page, so it's the one thing this mode actually removes rather than just
+trims.
 
 ## Debug line (`?debug=1`)
 

@@ -1,6 +1,6 @@
 /* =====================================================================
    sections/pricing-tiers.js — "Know the number before you commit."
-   Three cards (2BHK/3BHK/4BHK), the 3BHK marked as the most-chosen
+   Four cards (1BHK/2BHK/3BHK/Villa), the 3BHK marked as the most-chosen
    configuration, all numbers from content/pricing.js.
    ===================================================================== */
 function renderPricingTiers() {
@@ -17,7 +17,7 @@ function renderPricingTiers() {
           ${t.featured ? '<span class="tier-badge">Most chosen</span>' : ''}
           <h3>${escapeHtml(t.label)}</h3>
           <p class="tier-blurb">${escapeHtml(t.blurb || '')}</p>
-          <p class="tier-price">${escapeHtml(t.lowText)}<span class="tier-price-to"> – ${escapeHtml(t.highText)}</span></p>
+          <p class="tier-price">${escapeHtml(t.lowText)}<span class="tier-price-to">${t.openEnded ? ' onwards' : ' – ' + escapeHtml(t.highText)}</span></p>
           <ul class="tier-points">
             ${(t.points || []).map(pt => `<li>${escapeHtml(pt)}</li>`).join('')}
           </ul>

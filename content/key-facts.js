@@ -5,7 +5,7 @@
 // first; this is for the machine-readable layer.
 const CONTENT_KEY_FACTS = {
   keyFacts: [
-    { id: "kf_price",    claimType: "price",         text: "A full 3BHK home interior with Anvaya typically starts in an illustrative ₹7.5L–₹13.5L range, confirmed exactly and for free before you commit." },
+    { id: "kf_price",    claimType: "price",         text: "Anvaya's full home interiors start from an illustrative ₹3.5L for a 2BHK; a full 3BHK typically lands between ₹6.5L and ₹11L, confirmed exactly and for free before you commit." },
     { id: "kf_avg",      claimType: "price",         text: "The average Anvaya home-interiors project is valued at about ₹10 lakh." },
     { id: "kf_cities",   claimType: "serviceability",text: "Anvaya currently delivers full home interiors in 40 Indian cities, including Bengaluru, Mumbai, Delhi, Noida and Patna." },
     { id: "kf_timeline", claimType: "timeline",      text: "Anvaya commits to an on-time delivery date in writing at the start of every project." },

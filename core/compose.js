@@ -45,6 +45,7 @@ function determineRule(p) {
 function renderSecondary(faqContext) {
   let out = renderTrustBar();
   out += renderGallery();
+  out += renderCustomize();     // bridge into the existing intent-capture flow
   out += renderVirtualTour();   // demoted "prefer to look around first?" fallback, right after real photos
   out += renderHowItWorks();
   out += renderPricingTiers();

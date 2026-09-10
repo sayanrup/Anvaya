@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Anvaya — Full Home Interiors, Cost Confirmed Before You Commit</title>
 <meta name="description" content="Anvaya designs, manufactures and installs full home interiors across 40 Indian cities, with fixed pricing confirmed before you commit, on-time delivery, and a written warranty.">
-<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="icon" href="assets/logo.png" type="image/png">
 <link rel="stylesheet" href="styles.css">
 <script>
   // Typography to match the reference UI (Fraunces display serif +
@@ -54,16 +54,17 @@
     "provider": { "@type": "Organization", "name": "Anvaya" },
     "areaServed": ["Bengaluru","Mumbai","Delhi","Noida","Patna"],
     "offers": [
-      { "@type": "Offer", "name": "2BHK full-home interiors", "priceCurrency": "INR", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 550000, "maxPrice": 950000, "priceCurrency": "INR" }, "description": "Illustrative starting range for planning only — not a quote. Your exact price depends on city, carpet area, and finish level, and is confirmed for free before you sign anything." },
-      { "@type": "Offer", "name": "3BHK full-home interiors", "priceCurrency": "INR", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 750000, "maxPrice": 1350000, "priceCurrency": "INR" }, "description": "Illustrative starting range for planning only — not a quote. Your exact price depends on city, carpet area, and finish level, and is confirmed for free before you sign anything." },
-      { "@type": "Offer", "name": "4BHK full-home interiors", "priceCurrency": "INR", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 1000000, "maxPrice": 1700000, "priceCurrency": "INR" }, "description": "Illustrative starting range for planning only — not a quote. Your exact price depends on city, carpet area, and finish level, and is confirmed for free before you sign anything." }
+      { "@type": "Offer", "name": "1BHK full-home interiors", "priceCurrency": "INR", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 250000, "maxPrice": 400000, "priceCurrency": "INR" }, "description": "Illustrative starting range for planning only — not a quote. Your exact price depends on city, carpet area, and finish level, and is confirmed for free before you sign anything." },
+      { "@type": "Offer", "name": "2BHK full-home interiors", "priceCurrency": "INR", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 350000, "maxPrice": 600000, "priceCurrency": "INR" }, "description": "Illustrative starting range for planning only — not a quote. Your exact price depends on city, carpet area, and finish level, and is confirmed for free before you sign anything." },
+      { "@type": "Offer", "name": "3BHK full-home interiors", "priceCurrency": "INR", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 650000, "maxPrice": 1100000, "priceCurrency": "INR" }, "description": "Illustrative starting range for planning only — not a quote. Your exact price depends on city, carpet area, and finish level, and is confirmed for free before you sign anything." },
+      { "@type": "Offer", "name": "Villa full-home interiors", "priceCurrency": "INR", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 1200000, "priceCurrency": "INR" }, "description": "Illustrative starting range for planning only — not a quote. Your exact price depends on city, carpet area, and finish level, and is confirmed for free before you sign anything." }
     ]
   },
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      { "@type": "Question", "name": "How much does a 3BHK home interior cost with Anvaya?", "acceptedAnswer": { "@type": "Answer", "text": "An illustrative starting range is ₹7.5L–₹13.5L for a full 3BHK; your exact price is confirmed for free before you commit, using Anvaya's Cost Calculator." } },
+      { "@type": "Question", "name": "How much does a 3BHK home interior cost with Anvaya?", "acceptedAnswer": { "@type": "Answer", "text": "An illustrative starting range is ₹6.5L–₹11L for a full 3BHK, with interiors starting from just ₹3.5L for a 2BHK; your exact price is confirmed for free before you commit, using Anvaya's Cost Calculator." } },
       { "@type": "Question", "name": "Is Anvaya available in my city?", "acceptedAnswer": { "@type": "Answer", "text": "Anvaya currently operates in 40 Indian cities, including Bengaluru, Mumbai, Delhi, Noida and Patna. Enter your city on this page for a direct yes/no." } },
       { "@type": "Question", "name": "Does Anvaya guarantee delivery dates?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Anvaya commits to an on-time delivery date in writing at the start of every project." } },
       { "@type": "Question", "name": "Is there a warranty on Anvaya interiors?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every Anvaya project is backed by a written warranty covering workmanship and materials after handover." } },
@@ -89,10 +90,10 @@
 <header class="topbar">
   <div class="wrap header-row">
     <a class="brand-mark" href="#top" aria-label="Anvaya home">
-      <img src="assets/logo.svg" width="32" height="32" alt="">
+      <img src="assets/logo.png" width="32" height="32" alt="">
       <span class="logo">Anvaya</span>
     </a>
-    <a class="tiny-cta" id="header-cta" href="#estimate">Get estimate</a>
+    <a class="tiny-cta" id="header-cta" href="#estimate">Get Free Estimates</a>
   </div>
   <nav class="site-nav wrap" aria-label="Page sections" id="site-nav"><!-- filled by sections/header.js --></nav>
 </header>
@@ -134,6 +135,7 @@
 <script src="content/hero.js"></script>
 <script src="content/pricing.js"></script>
 <script src="content/gallery.js"></script>
+<script src="content/customize.js"></script>
 <script src="content/how-it-works.js"></script>
 <script src="content/commitments.js"></script>
 <script src="content/serviceability.js"></script>
@@ -156,6 +158,7 @@
 <script src="sections/lead.js"></script>
 <script src="sections/trust-bar.js"></script>
 <script src="sections/gallery.js"></script>
+<script src="sections/customize.js"></script>
 <script src="sections/pricing-tiers.js"></script>
 <script src="sections/how-it-works.js"></script>
 <script src="sections/key-facts.js"></script>
