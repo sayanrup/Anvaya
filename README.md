@@ -18,6 +18,67 @@ Because the page is split across many files loaded via plain
 opening `index.html` directly via a `file://` URL will fail to load the
 other files in most browsers.
 
+## Design direction (v8): Why Us table + intent-wise URL variants
+
+Two changes to layout, plus four new URL-driven page variants.
+
+**Layout:**
+- **"Why choose Anvaya"** (`content/why-us.js` / `sections/why-us.js`) —
+  a new comparison section, placed before "Indicative pricing": three
+  horizontally-scrolling cards (Anvaya / Other Brands / Local Shops)
+  across 1BHK price, 2BHK price, delivery, trust, payment. Anvaya's own
+  price rows resolve through `getPriceTier()`, so they can never disagree
+  with the pricing table right after this section. The other two columns
+  are deliberately **qualitative text only** ("Similar range, varies by
+  brand," "Often 60–90 days, not always fixed") — this project has never
+  allowed a fabricated competitor number, and a specific "other brands
+  charge ₹X" figure would be exactly that, just aimed at a category
+  instead of a name. A small note under the cards says so explicitly.
+- **"Prefer to look around first?"** (the 360° tour) moved to directly
+  **after** "Indicative pricing" instead of before it — a fallback for
+  visitors who want to browse before deciding, not a detour on the way to
+  the number.
+- **"Compare us with others"** — a small text link next to the "Cost
+  known upfront" trust-bar item (`sections/trust-bar.js`), pointing at
+  `#why-us`.
+
+**Four new URL-driven variants**, added the same way every other signal on
+this page works — read once from the query string, never a real backend
+or analytics read:
+
+- **`?visitor=returning`** — a repeat visitor who already has a quote.
+  Overrides every other rule (`core/compose.js` `determineRule()`, rule
+  0): the lead becomes "Welcome back — hope you liked what we put
+  together," with "Let's finalize my design" as the primary CTA
+  (`content/returning.js` / `sections/lead.js`
+  `renderReturningLead()`). **Honesty note:** this project has no GA
+  cookie or backend to read a real "has a quote" signal from — in a real
+  deployment this param would be set by whatever system already knows
+  that (a CRM link, an email campaign, a real analytics-backed redirect);
+  this static page only ever reads it off the URL, same as every other
+  signal here.
+- **`?speed=slow`** — after 4 seconds, a popup offers a lighter path:
+  "Ask AI assistant" or "Get a callback from our experts"
+  (`content/slow-popup.js` / `sections/slow-network-popup.js`). Its links
+  preserve whatever's already on the URL (city, intent, `speed=slow`
+  itself) rather than replacing the query string outright.
+- **A non-serviceable `city`** — the persistent city strip switches to a
+  warning variant: "Looks like we're not serviceable in `{city}` yet,"
+  with "Get delivery cost" and "Get a callback from our experts" CTAs
+  (`sections/city-strip.js`). **Honesty note:** "non-serviceable" here is
+  the same boolean `checkServiceability()` already uses everywhere else
+  on this page (a match against the approved 40-city list, alias-resolved)
+  — not a real geo-distance calculation against ">100km from a
+  serviceable area," which this static page has no way to compute.
+- **15 seconds of no interaction** (mouse, keyboard, touch, scroll, or
+  click — checked continuously, no param needed) — a popup: "Still
+  there? See what we can do for your home," linking to the designs
+  gallery (`content/inactivity-popup.js` /
+  `sections/inactivity-popup.js`). Skipped for `speed=slow`, which
+  already gets its own 4-second popup instead — the two share one
+  `sessionStorage` flag (`sections/popups.js`) so a visitor never sees
+  both stacked on top of each other.
+
 ## Design direction (v3): a real visual language, copied and adapted
 
 v2 (below) fixed the page's *information architecture* — what leads,
@@ -327,7 +388,7 @@ just organised into files that are easy to find and edit individually).
 | **`content/`** | | |
 | `content/brand.js` | Who Anvaya is (name, legal name, URL, description). |
 | `content/nav.js` | Header quick-jump links (Designs / Pricing / Testimonials / FAQs). |
-| `content/city-strip.js` | The persistent "your city" strip copy (detected vs. default template + change-city label). |
+| `content/city-strip.js` | The persistent "your city" strip copy (detected / default / not-serviceable templates + change-city label). |
 | `content/ctas.js` | Every button label on the site — one primary proposition, reused, plus a shorter `headerCta` variant for the compact header pill. |
 | `content/hero.js` | Default/organic first-screen copy + hero photo. |
 | `content/pricing.js` | **The only place price numbers are typed** — 1BHK/2BHK/3BHK/Villa tiers (Villa open-ended), feature bullets, + the shared disclaimer. |
@@ -343,6 +404,10 @@ just organised into files that are easy to find and edit individually).
 | `content/key-facts.js` | Quotable declarative sentences for the machine-readable layer. |
 | `content/faq.js` | FAQ entries. |
 | `content/reviews.js` | Customer review quotes, each tagged with a `tier` id so the card can show which package they took. |
+| `content/why-us.js` | "Why choose Anvaya" comparison copy — Anvaya's rows reference price tiers by id; the other two columns are plain qualitative strings, never invented numbers. |
+| `content/returning.js` | The "welcome back" lead copy for `?visitor=returning`. |
+| `content/slow-popup.js` | Copy for the 4-second `?speed=slow` popup. |
+| `content/inactivity-popup.js` | Copy for the 15-second no-interaction popup. |
 | `content/index.js` | Merges every fragment above into the one frozen `APPROVED_CONTENT`. Loads last among content files. |
 | **`core/`** | | |
 | `core/guardrail.js` | `canRender()` and the approved-block registry. |
@@ -353,19 +418,23 @@ just organised into files that are easy to find and edit individually).
 | `sections/icons.js` | A handful of small inline-SVG line icons (rupee/clock/shield/star/pin), matching the reference UI's icon look without an icon-font dependency. |
 | `sections/illustrations.js` | Shared CSS/SVG room illustrations + the photo-or-illustration fallback helper. |
 | `sections/hero.js` | The default/cost full-bleed photo hero + the last-resort safe fallback. |
-| `sections/lead.js` | The compare / delivery_check / capture / city-capture lead blocks. |
-| `sections/trust-bar.js` | The icon + label + sub-label trust strip under the hero. |
-| `sections/city-strip.js` | The persistent city strip, shown at the top of every page state. |
+| `sections/lead.js` | The returning / compare / delivery_check / capture / city-capture lead blocks. |
+| `sections/trust-bar.js` | The icon + label + sub-label trust strip under the hero, plus the "Compare us with others" link beside "Cost known upfront." |
+| `sections/city-strip.js` | The persistent city strip, shown at the top of every page state — detected / default / not-serviceable variants. |
 | `sections/gallery.js` | "Every room, measured for your walls" — category-pill filter over a horizontally-scrolling row of project cards, each with its own infinite-loop carousel when it has multiple photos. |
+| `sections/why-us.js` | "Why choose Anvaya" — the three-card comparison table, before pricing. |
 | `sections/customize.js` | The "Customize as per your need" bridge into the capture flow — shown right after pricing. |
 | `sections/pricing-tiers.js` | The 1BHK/2BHK/3BHK/Villa feature-card pricing table (horizontally scrollable), with the 3BHK marked "Most chosen." |
 | `sections/key-facts.js` | The collapsed "Know us in detail" quotable facts. |
 | `sections/reviews.js` | Review cards — avatar, stars, package taken, styled after a Google-reviews look (not a real Google data source). |
-| `sections/virtual-tour.js` | The demoted drag-to-pan tour, now through real photos. |
+| `sections/virtual-tour.js` | The demoted drag-to-pan tour, now through real photos — shown after pricing, for visitors who'd rather browse first. |
 | `sections/faq.js` | The FAQ accordion. |
 | `sections/consult-form.js` | The real (client-side-only) enquiry form. |
 | `sections/header.js` | Renders the header's nav links and CTA from approved content. |
-| `sections/engagement-signals.js` | The 15-second dwell-based CTA elevation. |
+| `sections/engagement-signals.js` | The 15-second dwell-based CTA elevation (pricing-block specific). |
+| `sections/popups.js` | The shared modal (`showModalPopup`) + single-popup-per-tab gate used by the two popups below. |
+| `sections/slow-network-popup.js` | `?speed=slow` → a popup after 4 seconds offering a lighter path. |
+| `sections/inactivity-popup.js` | 15 seconds of no interaction (any state) → a "see what we can do for you" popup. |
 
 These are plain, non-module scripts sharing one global scope, loaded in
 dependency order by `index.html` — no bundler, so GitHub Pages can serve
@@ -374,18 +443,24 @@ load first; `core/compose.js` must load last.
 
 ## How composition works
 
-Four URL query parameters drive the page:
+Five URL query parameters drive the lead section; two more (`speed`,
+plus continuous no-interaction detection) separately drive the two
+popups:
 
-| Param    | Values                                              |
-|----------|------------------------------------------------------|
-| `intent` | `3bhk_cost`, `vs_competitor`, `delivery_check`, `unknown` |
-| `source` | `assistant`, `search`, `paid`, `direct`               |
-| `city`   | any string, e.g. `Bengaluru`, `Bangalore`, `Patna`    |
-| `speed`  | `fast`, `slow`                                        |
-| `debug`  | `1` to show a debug line at the bottom                |
+| Param     | Values                                              |
+|-----------|------------------------------------------------------|
+| `intent`  | `3bhk_cost`, `vs_competitor`, `delivery_check`, `unknown` |
+| `source`  | `assistant`, `search`, `paid`, `direct`               |
+| `city`    | any string, e.g. `Bengaluru`, `Bangalore`, `Patna`, or an uncovered city |
+| `speed`   | `fast`, `slow`                                        |
+| `visitor` | `returning`                                           |
+| `debug`   | `1` to show a debug line at the bottom                |
 
 `determineRule()` in `core/compose.js`, in precedence order:
 
+0. `visitor=returning` → **returning** — "Welcome back — hope you liked
+   what we put together," overriding every other signal below, including
+   `source=assistant`.
 1. `source=assistant` → **capture** — "What brought you here today?"
 2. `intent=unknown` (explicit) → **capture**.
 3. `intent=delivery_check` **with** `city` → **delivery_check** — a big
@@ -400,6 +475,14 @@ Four URL query parameters drive the page:
    (see below), just a distinct debug label and FAQ-priority reason.
 7. Missing or unrecognised `intent` → **hero** — the default first
    screen: visual, price, trust line, one CTA. Answers first.
+
+Independently of which lead renders, the **persistent city strip** (right
+above "Indicative pricing," every state) switches to a warning variant
+whenever `city` is present but doesn't resolve to a serviceable city —
+"Looks like we're not serviceable in `{city}` yet," with delivery-cost
+and callback CTAs — and `speed=slow` / 15 seconds of no interaction each
+independently trigger one of the two popups described in "Design
+direction (v8)" above.
 
 ### The "Bangalore" problem
 
@@ -518,6 +601,18 @@ composition trace.
 5. **Assistant-referred / explicitly unknown** — the only cases that show the capture screen
    `index.html?source=assistant`
    `index.html?intent=unknown`
+
+6. **Returning visitor with a quote already** — "Welcome back," skips the pitch entirely
+   `index.html?visitor=returning`
+
+7. **Slow connection** — after 4 seconds, a popup offers "Ask AI assistant" / "Get a callback"
+   `index.html?speed=slow`
+
+8. **Non-serviceable city** — the persistent city strip switches to a warning + delivery-cost/callback CTAs
+   `index.html?city=Shillong` (any city outside the approved 40 shows this, on any lead state)
+
+9. **15 seconds of no interaction** — no param needed; wait 15s without touching the page on any URL above
+   `index.html` (then don't move the mouse, scroll, or tap for 15 seconds)
 
 ## Context
 

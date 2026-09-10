@@ -6,6 +6,22 @@
    (sections/hero.js) if its own required content fails canRender().
    ===================================================================== */
 
+// ?visitor=returning: a repeat visitor who already has a quote — see
+// content/returning.js for why this is a URL param, not a real cookie
+// read. Takes priority over every other rule in determineRule().
+function renderReturningLead() {
+  const r = APPROVED_CONTENT.returning;
+  if (!r) return renderGenericSafe();
+  return `
+  <section class="lead lead-returning" id="hero">
+    <p class="kicker">${escapeHtml(r.kicker)}</p>
+    <h1>${escapeHtml(r.headline)}</h1>
+    <p class="sub">${escapeHtml(r.body)}</p>
+    <a class="btn btn-primary" href="${APPROVED_CONTENT.ctas.primary.href}">${escapeHtml(r.primaryCtaLabel)} →</a>
+    <a class="btn btn-outline" href="${APPROVED_CONTENT.ctas.secondary.href}">${escapeHtml(r.secondaryCtaLabel)}</a>
+  </section>`;
+}
+
 function renderCompareLead() {
   const commitments = APPROVED_CONTENT.commitments.filter(canRender);
   if (!commitments.length) return renderGenericSafe();

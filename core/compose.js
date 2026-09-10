@@ -8,6 +8,12 @@
    core/helpers.js, core/jsonld.js, and every file in sections/.
    ===================================================================== */
 function determineRule(p) {
+  // Rule 0 — a repeat visitor who already has a quote is the most
+  // specific signal this page can receive, so it overrides everything
+  // else, including source=assistant.
+  if (p.visitor === 'returning') {
+    return { rule: 'returning', reason: 'visitor=returning → welcome back' };
+  }
   // Rule 1 — assistant-referred visitors arrive pre-informed: skip the
   // pitch entirely and go straight to intent capture, regardless of
   // whatever intent value also happens to be on the URL.
@@ -45,10 +51,11 @@ function determineRule(p) {
 function renderSecondary(faqContext) {
   let out = renderTrustBar();
   out += renderGallery();
-  out += renderVirtualTour();   // demoted "prefer to look around first?" fallback, right after real photos
-  out += renderCityStrip();     // moved here, directly before pricing
+  out += renderWhyUs();         // "why choose Anvaya" comparison, before pricing
+  out += renderCityStrip();     // directly before pricing
   out += renderPricingTiers();
-  out += renderCustomize();     // "ask AI" bridge into the intent-capture flow, right after price
+  out += renderVirtualTour();   // "prefer to look around first?" fallback, right after pricing
+  out += renderCustomize();     // "ask AI" bridge into the intent-capture flow
   out += renderReviews();
   out += renderKeyFacts();      // collapsed "Know us in detail" — machine-readable layer, not a human focal point
   out += renderFaq(faqContext);
@@ -64,7 +71,8 @@ function renderDebug(params, rule, reason) {
     `<strong>debug</strong> — params read: intent=<code>${escapeHtml(params.intent) || '∅'}</code>, ` +
     `source=<code>${escapeHtml(params.source) || '∅'}</code>, ` +
     `city=<code>${escapeHtml(params.city) || '∅'}</code>, ` +
-    `speed=<code>${escapeHtml(params.speed) || '∅'}</code><br>` +
+    `speed=<code>${escapeHtml(params.speed) || '∅'}</code>, ` +
+    `visitor=<code>${escapeHtml(params.visitor) || '∅'}</code><br>` +
     `composition rule fired: <code>${rule}</code> — ${escapeHtml(reason)}<br>` +
     `guardrail check — unapproved named-competitor claim blocked: <code>${guardrailBlockedCompetitorClaim}</code>`;
 }
@@ -76,6 +84,8 @@ function composePage() {
 
   let leadHtml, faqContext, activeState;
   switch (rule) {
+    case 'returning':
+      leadHtml = renderReturningLead(); faqContext = 'generic'; activeState = 'returning'; break;
     case 'cost':
       leadHtml = renderHero(); faqContext = 'cost'; activeState = 'cost'; break;
     case 'compare':
@@ -96,9 +106,9 @@ function composePage() {
   applySpeedMode(params.speed);
   if (params.debug) renderDebug(params, rule, reason);
 
-  // Lets sections/engagement-signals.js know the active rule and that
-  // #pricing-tiers now exists in the DOM — see that file for why.
-  document.dispatchEvent(new CustomEvent('anvaya:composed', { detail: { rule, activeState } }));
+  // Lets sections/engagement-signals.js and the popup modules know the
+  // active rule and that #pricing-tiers/#gallery now exist in the DOM.
+  document.dispatchEvent(new CustomEvent('anvaya:composed', { detail: { rule, activeState, params } }));
 }
 
 document.addEventListener('DOMContentLoaded', composePage);

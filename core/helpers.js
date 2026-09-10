@@ -35,6 +35,7 @@ function getParams() {
     source: (sp.get('source') || '').trim().toLowerCase(),
     city:   (sp.get('city') || '').trim(),
     speed:  (sp.get('speed') || '').trim().toLowerCase(),
+    visitor:(sp.get('visitor') || '').trim().toLowerCase(),
     debug:  sp.get('debug') === '1'
   };
 }

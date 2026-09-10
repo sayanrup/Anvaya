@@ -17,6 +17,16 @@ const CONTENT_CTAS = {
     // Shown only if a visitor's own behaviour (dwelling on the price
     // block) elevates it — see sections/engagement-signals.js. Still an
     // approved string picked from this file, never generated on the fly.
-    elevated:     { label: "See your exact 3BHK cost", href: "#pricing-tiers" }
+    elevated:     { label: "See your exact 3BHK cost", href: "#pricing-tiers" },
+    // Small textual link next to "Cost known upfront" in the trust bar
+    // (sections/trust-bar.js), pointing at the why-us comparison table.
+    compare:      { label: "Compare us with others", href: "#why-us" },
+    // Slow-network popup (sections/slow-network-popup.js).
+    askAi:        { label: "Ask AI assistant", href: "?intent=unknown" },
+    callback:     { label: "Get a callback from our experts", href: "#estimate" },
+    // Idle-visitor popup (sections/inactivity-popup.js).
+    seeDesigns:   { label: "See our designs & prices", href: "#gallery" },
+    // Non-serviceable-city strip (sections/city-strip.js).
+    deliveryCost: { label: "Get delivery cost", href: "#estimate" }
   }
 };
