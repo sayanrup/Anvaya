@@ -3,9 +3,11 @@
 // visitor (see sections/hero.js) — they're asking the same question.
 const CONTENT_HERO = {
   hero: {
-    headline: "Your 3BHK, designed around you.",
-    trustLine: "Fixed price. On-time delivery. Written warranty.",
+    kicker: "Interiors, end to end",
+    headline: "Homes that feel finished, not furnished.",
+    trustLine: "Design, manufacture and installation under one roof.",
     disclaimer: "*Illustrative range. Exact cost confirmed before you commit.",
-    imageAlt: "Illustration of a furnished living room"
+    imageUrl: "assets/photos/hero-living.jpg",
+    imageAlt: "Warm modern living room concept in an Anvaya-designed home"
   }
 };

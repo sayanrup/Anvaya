@@ -1,14 +1,13 @@
 /* =====================================================================
-   sections/gallery.js — "See what we build": a category filter + a
-   horizontally-swipeable row of project cards. This is the page's #1
-   improvement per the redesign feedback — real visual evidence, not
-   just structured claims. See sections/illustrations.js for why these
-   are drawn illustrations rather than photos, and how to swap in real
-   photography later.
+   sections/gallery.js — "Every room, measured for your walls": a
+   category filter + a horizontally-swipeable row of project cards. Real
+   visual evidence, not just structured claims — see content/gallery.js
+   for photo provenance and sections/illustrations.js for the fallback
+   used whenever an entry's `imageUrl` is unset.
    -----------------------------------------------------------------
-   The category pills double as the "visual category navigation" from
-   the same feedback (Living Room / Kitchen / Bedroom / Wardrobe / Full
-   Home) rather than a second, separate nav — one control, two jobs.
+   The category pills double as visual category navigation (Living Room
+   / Kitchen / Bedroom / Wardrobe / Study) rather than a second, separate
+   nav — one control, two jobs.
    ===================================================================== */
 function renderGallery() {
   const categories = APPROVED_CONTENT.galleryCategories;
@@ -31,7 +30,9 @@ function renderGallery() {
 
   return `
   <section class="gallery" id="gallery" aria-label="See what we build">
-    <h2>See what we build</h2>
+    <p class="kicker">What we design</p>
+    <h2>Every room, measured for your walls</h2>
+    <p class="section-intro">Nothing here is off the shelf. Each unit is drawn to your floor plan, built in our factory and fitted on site by our own crew.</p>
     <div class="category-pills" id="categories">${pills}</div>
     <ul class="project-row" id="project-row">${cards}</ul>
   </section>`;

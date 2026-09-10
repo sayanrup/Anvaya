@@ -1,21 +1,28 @@
 /* =====================================================================
-   sections/pricing-tiers.js — "What will my home cost?" A row per
-   configuration (2BHK/3BHK/4BHK), all from content/pricing.js.
+   sections/pricing-tiers.js — "Know the number before you commit."
+   Three cards (2BHK/3BHK/4BHK), the 3BHK marked as the most-chosen
+   configuration, all numbers from content/pricing.js.
    ===================================================================== */
 function renderPricingTiers() {
   const tiers = APPROVED_CONTENT.priceTiers.filter(canRender);
   if (!tiers.length) return '';
   return `
   <section class="pricing-tiers" id="pricing-tiers">
-    <h2>What will my home cost?</h2>
-    <ul class="tier-list">
+    <p class="kicker">Indicative pricing</p>
+    <h2>Know the number before you commit</h2>
+    <p class="section-intro">${escapeHtml(APPROVED_CONTENT.priceDisclaimer)}</p>
+    <div class="tier-cards">
       ${tiers.map(t => `
-        <li data-claim-type="${t.claimType}">
-          <span class="tier-label">${escapeHtml(t.label)}</span>
-          <span class="tier-range">${escapeHtml(t.lowText)} – ${escapeHtml(t.highText)}</span>
-        </li>`).join('')}
-    </ul>
-    <p class="price-disclaimer">${escapeHtml(APPROVED_CONTENT.priceDisclaimer)}</p>
-    <a class="btn btn-primary" href="${APPROVED_CONTENT.ctas.calculate.href}">${escapeHtml(APPROVED_CONTENT.ctas.calculate.label)} →</a>
+        <div class="tier-card${t.featured ? ' featured' : ''}" data-claim-type="${t.claimType}">
+          ${t.featured ? '<span class="tier-badge">Most chosen</span>' : ''}
+          <h3>${escapeHtml(t.label)}</h3>
+          <p class="tier-blurb">${escapeHtml(t.blurb || '')}</p>
+          <p class="tier-price">${escapeHtml(t.lowText)}<span class="tier-price-to"> – ${escapeHtml(t.highText)}</span></p>
+          <ul class="tier-points">
+            ${(t.points || []).map(pt => `<li>${escapeHtml(pt)}</li>`).join('')}
+          </ul>
+          <a class="btn ${t.featured ? 'btn-primary' : 'btn-outline'}" href="${APPROVED_CONTENT.ctas.calculate.href}">${escapeHtml(APPROVED_CONTENT.ctas.calculate.label)}</a>
+        </div>`).join('')}
+    </div>
   </section>`;
 }

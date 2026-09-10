@@ -7,6 +7,20 @@
 <meta name="description" content="Anvaya designs, manufactures and installs full home interiors across 40 Indian cities, with fixed pricing confirmed before you commit, on-time delivery, and a written warranty.">
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 <link rel="stylesheet" href="styles.css">
+<script>
+  // Typography to match the reference UI (Fraunces display serif +
+  // Manrope sans) — the one external request this page makes; everything
+  // else stays self-contained. Injected from a tiny inline script rather
+  // than a plain <link> so a genuinely slow visitor (?speed=slow) never
+  // fires the request at all, not just skips waiting on it. Falls back
+  // to the system font stack in styles.css either way.
+  if (new URLSearchParams(location.search).get('speed') !== 'slow') {
+    var fontLink = document.createElement('link');
+    fontLink.rel = 'stylesheet';
+    fontLink.href = 'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;700;800&display=swap';
+    document.head.appendChild(fontLink);
+  }
+</script>
 
 <!--
   STATIC BASELINE JSON-LD
@@ -101,7 +115,8 @@
 </noscript>
 
 <footer>
-  <p id="estimate">Anvaya · Full home interiors across India · This is a self-composing demo page.</p>
+  <p class="logo">Anvaya</p>
+  <p>Full home interiors across India · This is a self-composing demo page.</p>
   <div id="debug-line" hidden></div>
 </footer>
 
@@ -125,6 +140,7 @@
 <script src="content/question-capture.js"></script>
 <script src="content/city-capture.js"></script>
 <script src="content/virtual-tour.js"></script>
+<script src="content/consult.js"></script>
 <script src="content/generic.js"></script>
 <script src="content/key-facts.js"></script>
 <script src="content/faq.js"></script>
@@ -134,6 +150,7 @@
 <script src="core/guardrail.js"></script>
 <script src="core/helpers.js"></script>
 
+<script src="sections/icons.js"></script>
 <script src="sections/illustrations.js"></script>
 <script src="sections/hero.js"></script>
 <script src="sections/lead.js"></script>
@@ -141,12 +158,11 @@
 <script src="sections/gallery.js"></script>
 <script src="sections/pricing-tiers.js"></script>
 <script src="sections/how-it-works.js"></script>
-<script src="sections/commitments.js"></script>
 <script src="sections/key-facts.js"></script>
 <script src="sections/reviews.js"></script>
 <script src="sections/virtual-tour.js"></script>
 <script src="sections/faq.js"></script>
-<script src="sections/final-cta.js"></script>
+<script src="sections/consult-form.js"></script>
 <script src="sections/header.js"></script>
 <script src="sections/engagement-signals.js"></script>
 

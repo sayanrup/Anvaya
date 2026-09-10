@@ -42,17 +42,16 @@ function determineRule(p) {
   return { rule: 'hero', reason: `${why} → default hero (answer first)` };
 }
 
-function renderSecondary(context) {
+function renderSecondary(faqContext) {
   let out = renderTrustBar();
   out += renderGallery();
-  out += renderPricingTiers();
+  out += renderVirtualTour();   // demoted "prefer to look around first?" fallback, right after real photos
   out += renderHowItWorks();
-  if (context !== 'compare') out += renderCommitmentsStrip(); // avoid duplicating the compare lead
-  out += renderKeyFacts();
+  out += renderPricingTiers();
   out += renderReviews();
-  out += renderVirtualTour();
-  out += renderFaq(context);
-  out += renderFinalCta();
+  out += renderKeyFacts();      // collapsed "In detail" — machine-readable layer, not a human focal point
+  out += renderFaq(faqContext);
+  out += renderConsultForm();
   return out;
 }
 

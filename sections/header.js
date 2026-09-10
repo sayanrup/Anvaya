@@ -17,7 +17,7 @@
   }
   const cta = document.getElementById('header-cta');
   if (cta) {
-    cta.href = APPROVED_CONTENT.ctas.primary.href;
-    cta.textContent = APPROVED_CONTENT.ctas.primary.label;
+    cta.href = APPROVED_CONTENT.ctas.headerCta.href;
+    cta.textContent = APPROVED_CONTENT.ctas.headerCta.label;
   }
 })();

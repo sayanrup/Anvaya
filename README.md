@@ -18,12 +18,62 @@ Because the page is split across many files loaded via plain
 opening `index.html` directly via a `file://` URL will fail to load the
 other files in most browsers.
 
-## Design direction (v2)
+## Design direction (v3): a real visual language, copied and adapted
 
-The first version of this page led with a text-only headline and price.
-It was rebuilt around one observation: **the page had a lot of text and
-almost no visual evidence**, for a category (home interiors) that sells
-almost entirely on visual trust. The rebuild, in order of what changed:
+v2 (below) fixed the page's *information architecture* — what leads,
+what's a claim, what degrades safely. It still looked like a text-heavy
+demo. v3 copies its visual language from a reference UI the site owner
+pointed this project at
+([sayanrup/home-lane-hub](https://github.com/sayanrup/home-lane-hub)) and
+refits every v2 component into it:
+
+- **Palette & type** — a warm "quiet luxury" system (Fraunces display
+  serif + Manrope sans, terracotta/gold on a warm ivory ground, sharp
+  corners, uppercase-tracked kicker labels) replaces the earlier flat
+  red/pill-button styling. All of it lives in `styles.css`'s `:root`
+  custom properties — change the look by changing values there, not by
+  touching any section file.
+- **Real photography** — see "On the photography" below.
+- **A full-bleed photo hero**, a dark "How it works" band, feature-style
+  pricing cards with a "Most chosen" tier, and a real (client-side-only)
+  consult form — all styled after the reference's structural rhythm,
+  described section by section in the file table below.
+- **Everything from v2 underneath is unchanged**: the intent-based
+  composition, the approved-content library, `canRender()`, the city
+  alias map, the city-capture flow, and the 15-second engagement signal
+  all still work exactly as described below — this pass only changed the
+  shell they render into.
+
+### On the photography
+
+The five photos in `assets/photos/` (resized/compressed from the
+reference repo's originals) are concept interior renders from that same
+author's other project — not photographs of an actual completed Anvaya
+installation, since no such project exists for this demo brand. They're
+real, high-quality images (not the CSS illustrations v2 shipped with),
+just not verified as "this specific home was built by Anvaya" — the
+gallery's kicker copy ("Nothing here is off the shelf...") describes the
+company's actual process, not a claim about these specific frames. The
+photo-or-illustration fallback system from v2 is unchanged
+(`sections/illustrations.js`): any `imageUrl` in `content/hero.js` or
+`content/gallery.js` can be swapped for a real captured project photo
+later with no code change, and any entry that *doesn't* set one still
+renders the drawn illustration.
+
+The type pairing pulls two Google Fonts (Fraunces, Manrope) — the one
+external request this otherwise fully self-contained page makes. It's
+injected from a small inline bootstrap script in `index.html`, not a
+plain `<link>`, specifically so a `speed=slow` visitor never fires that
+request at all (see "Speed handling" below) rather than merely not
+waiting on it.
+
+## Design direction (v2): information architecture
+
+The very first version of this page led with a text-only headline and
+price. It was rebuilt around one observation: **the page had a lot of
+text and almost no visual evidence**, for a category (home interiors)
+that sells almost entirely on visual trust. The rebuild, in order of what
+changed:
 
 1. **A real first-screen hero** — a visual (an illustration, since no
    real project photography exists yet for this demo brand — see
@@ -87,20 +137,16 @@ focused "Which city are you looking to design a home in?" screen
 any other), then re-enters the same serviceability check once a city is
 known.
 
-### Illustrations, not photos
+### Photography (superseded by v3)
 
-Point 2 of the redesign feedback — real project photography — is the
-single highest-leverage change this page could make, and this build
-doesn't have real photos to use: no such project has actually been
-built for a demo brand. Rather than fabricate stock photos and present
-them as real Anvaya installations, the hero and gallery use small
-flat-design CSS/SVG room illustrations (`sections/illustrations.js`),
-honestly illustrative rather than passed off as real. Every illustration
-call site accepts an optional `imageUrl` first (`content/gallery.js`,
-`content/hero.js`) and only falls back to the drawn illustration when
-it's absent — so dropping in real photography later is a content change,
-not a rebuild: set `imageUrl` on a project or the hero and the matching
-`<img>` renders automatically.
+Point 2 of the redesign feedback — real project photography — was the
+single highest-leverage change this page could make. v2 shipped small
+flat-design CSS/SVG room illustrations instead, since no real photos
+existed at the time; v3 (above) replaced the hero and gallery with real
+photography while keeping the exact same illustration-fallback mechanism
+this paragraph originally described. The 360° tour (below) still uses the
+CSS illustrations, deliberately — see "The 15-second signal" and the
+tour's own copy for why a drawn illustration is the right choice there.
 
 ### On reviews
 
@@ -142,20 +188,22 @@ just organised into files that are easy to find and edit individually).
 | `index.html` | Page shell: `<head>`, static header markup, `<main id="app">` (filled by JS), footer, and the `<script>`/`<link>` includes, in load order. |
 | `styles.css` | Every visual rule on the page. |
 | `assets/logo.svg` | The Anvaya logo mark. |
+| `assets/photos/*.jpg` | Real interior photography — see "On the photography." |
 | `docs/AI-PM-Writeup.md` | The graded write-up for this exercise. |
 | **`content/`** | | |
 | `content/brand.js` | Who Anvaya is (name, legal name, URL, description). |
-| `content/nav.js` | Header quick-jump links. |
-| `content/ctas.js` | Every button label on the site — one primary proposition, reused. |
-| `content/hero.js` | Default/organic first-screen copy. |
-| `content/pricing.js` | **The only place price numbers are typed** — 2BHK/3BHK/4BHK tiers + the shared disclaimer. |
-| `content/gallery.js` | Gallery categories + project cards (photo-ready, illustration-backed). |
+| `content/nav.js` | Header quick-jump links (Spaces / How it works / Pricing / Stories / FAQs). |
+| `content/ctas.js` | Every button label on the site — one primary proposition, reused, plus a shorter `headerCta` variant for the compact header pill. |
+| `content/hero.js` | Default/organic first-screen copy + hero photo. |
+| `content/pricing.js` | **The only place price numbers are typed** — 2BHK/3BHK/4BHK tiers, feature bullets, + the shared disclaimer. |
+| `content/gallery.js` | Gallery categories + project cards (real photos, illustration-backed fallback). |
 | `content/how-it-works.js` | The four-step process. |
-| `content/commitments.js` | "What Anvaya commits to" (used as a lead, a strip, and trust-bar chips). |
+| `content/commitments.js` | "What Anvaya commits to" (used by the compare lead and the trust-bar chips). |
 | `content/serviceability.js` | The 40-city list, the city-alias map, and the yes/no templates. |
 | `content/question-capture.js` | The "what brought you here" screen (assistant/unknown visitors). |
 | `content/city-capture.js` | The "which city" screen (delivery_check without a city). |
 | `content/virtual-tour.js` | The demoted 360° tour fallback. |
+| `content/consult.js` | The real enquiry-form copy (fields, labels, success/error messages). |
 | `content/generic.js` | Last-resort copy if the hero's own content is somehow missing. |
 | `content/key-facts.js` | Quotable declarative sentences for the machine-readable layer. |
 | `content/faq.js` | FAQ entries. |
@@ -167,19 +215,19 @@ just organised into files that are easy to find and edit individually).
 | `core/jsonld.js` | Builds and injects the per-visitor JSON-LD. |
 | `core/compose.js` | `determineRule()` and `composePage()` — loads last overall. |
 | **`sections/`** | | |
+| `sections/icons.js` | A handful of small inline-SVG line icons (rupee/clock/shield/star/pin), matching the reference UI's icon look without an icon-font dependency. |
 | `sections/illustrations.js` | Shared CSS/SVG room illustrations + the photo-or-illustration fallback helper. |
-| `sections/hero.js` | The default/cost hero + the last-resort safe fallback. |
+| `sections/hero.js` | The default/cost full-bleed photo hero + the last-resort safe fallback. |
 | `sections/lead.js` | The compare / delivery_check / capture / city-capture lead blocks. |
-| `sections/trust-bar.js` | The compact trust strip under the hero. |
+| `sections/trust-bar.js` | The icon + label + sub-label trust strip under the hero. |
 | `sections/gallery.js` | "See what we build" + the category filter. |
-| `sections/pricing-tiers.js` | The 2BHK/3BHK/4BHK cost table. |
-| `sections/how-it-works.js` | The four-step process section. |
-| `sections/commitments.js` | The secondary "Why Anvaya" strip. |
+| `sections/pricing-tiers.js` | The 2BHK/3BHK/4BHK feature-card pricing table, with the 3BHK marked "Most chosen." |
+| `sections/how-it-works.js` | The dark four-step process section. |
 | `sections/key-facts.js` | The collapsed "In detail" quotable facts. |
 | `sections/reviews.js` | Review cards. |
 | `sections/virtual-tour.js` | The demoted drag-to-pan tour. |
 | `sections/faq.js` | The FAQ accordion. |
-| `sections/final-cta.js` | The closing CTA band. |
+| `sections/consult-form.js` | The real (client-side-only) enquiry form. |
 | `sections/header.js` | Renders the header's nav links and CTA from approved content. |
 | `sections/engagement-signals.js` | The 15-second dwell-based CTA elevation. |
 
@@ -294,10 +342,14 @@ doesn't execute JavaScript sees the hand-authored default-state snapshot
 
 ## Speed handling (`speed=slow`)
 
-No images, no web fonts, no external requests, regardless of `speed` —
-nothing to defer or lazy-load either way. `speed=slow` disables all CSS
-transitions/animations and skips the 15-second engagement nudge, trading
-polish for lower paint/CPU cost on a constrained device.
+`speed=slow`: skips the Google Fonts request entirely (an inline
+bootstrap script in `index.html` only injects the `<link>` when
+`speed !== 'slow'`, falling back to the system font stack instead — not
+just "don't wait on it," the request never fires), disables all CSS
+transitions/animations, and skips the 15-second engagement nudge. Photos
+are already resized/compressed (see `assets/photos/`) and there's no
+other external request either way, so this covers everything actually
+heavy on the page.
 
 ## Debug line (`?debug=1`)
 

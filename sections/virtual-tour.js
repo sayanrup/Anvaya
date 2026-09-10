@@ -20,12 +20,9 @@ const TOUR_SEGMENT_COUNT = 4;
 function renderVirtualTour() {
   const vt = APPROVED_CONTENT.virtualTour;
   if (!vt) return '';
-  const segment = `
-    <div class="room-segment">
-      <div class="tour-window"></div>
-      <div class="tour-sofa"></div>
-      <div class="tour-plant"></div>
-    </div>`;
+  // Reuses the same room-shape markup as sections/illustrations.js
+  // (the .illus-* classes) rather than a second, parallel set of shapes.
+  const segment = `<div class="room-segment">${roomShapes('living-room')}</div>`;
   return `
   <section class="virtual-tour" id="tour" aria-label="360 degree virtual tour">
     <h2>${escapeHtml(vt.heading)}</h2>
