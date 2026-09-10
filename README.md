@@ -326,7 +326,7 @@ just organised into files that are easy to find and edit individually).
 | `docs/AI-PM-Writeup.md` | The graded write-up for this exercise. |
 | **`content/`** | | |
 | `content/brand.js` | Who Anvaya is (name, legal name, URL, description). |
-| `content/nav.js` | Header quick-jump links (Spaces / Pricing / Stories / FAQs). |
+| `content/nav.js` | Header quick-jump links (Designs / Pricing / Testimonials / FAQs). |
 | `content/city-strip.js` | The persistent "your city" strip copy (detected vs. default template + change-city label). |
 | `content/ctas.js` | Every button label on the site — one primary proposition, reused, plus a shorter `headerCta` variant for the compact header pill. |
 | `content/hero.js` | Default/organic first-screen copy + hero photo. |
