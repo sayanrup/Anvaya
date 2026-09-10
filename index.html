@@ -3,36 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>HomeLane — Full Home Interiors, Cost Confirmed Before You Commit</title>
-<meta name="description" content="HomeLane designs, manufactures and installs full home interiors across 40 Indian cities, with fixed pricing confirmed before you commit, on-time delivery, and a written warranty.">
+<title>Anvaya — Full Home Interiors, Cost Confirmed Before You Commit</title>
+<meta name="description" content="Anvaya designs, manufactures and installs full home interiors across 40 Indian cities, with fixed pricing confirmed before you commit, on-time delivery, and a written warranty.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
 
 <!--
   STATIC BASELINE JSON-LD
   ========================
-  This is a hand-authored snapshot of the "generic / safe" visitor state,
-  built from the same APPROVED_CONTENT library the script below uses. It
-  exists so that a visitor (or a crawler) with JavaScript disabled still
-  gets correct, approved structured data — the file has no server, so a
-  per-visitor JSON-LD can only be produced client-side. When JS runs, this
-  same <script> tag's contents are rewritten by updateJsonLd() to match the
-  active composition state (see the script at the bottom of the page).
+  Hand-authored snapshot of the "generic / safe" visitor state, kept in
+  sync with content.js by hand. It exists so a visitor (or crawler) with
+  JavaScript disabled still gets correct, approved structured data — this
+  is a static file with no server, so a per-visitor JSON-LD can only be
+  produced client-side. Once JS runs, core/jsonld.js rewrites this same
+  <script> tag to match the active composition state.
 -->
 <script type="application/ld+json" id="ld-json">
 [
   {
     "@context": "https://schema.org",
     "@type": "HomeAndConstructionBusiness",
-    "name": "HomeLane",
-    "legalName": "HomeLane (Landmark Design Ideas Pvt Ltd)",
-    "url": "https://www.homelane.com",
-    "description": "HomeLane designs, manufactures and installs full home interiors across India, with fixed pricing confirmed before you commit, on-time delivery, and a written warranty on all work.",
+    "name": "Anvaya",
+    "legalName": "Anvaya Interiors Pvt Ltd",
+    "url": "https://sayanrup.github.io/Anvaya/",
+    "description": "Anvaya designs, manufactures and installs full home interiors across India, with fixed pricing confirmed before you commit, on-time delivery, and a written warranty on all work.",
     "areaServed": ["Bengaluru","Mumbai","Delhi","Noida","Gurugram","Ghaziabad","Faridabad","Pune","Hyderabad","Chennai","Kolkata","Ahmedabad","Surat","Vadodara","Rajkot","Jaipur","Lucknow","Kanpur","Chandigarh","Mohali","Ludhiana","Amritsar","Nagpur","Nashik","Indore","Bhopal","Coimbatore","Kochi","Thiruvananthapuram","Mysuru","Mangaluru","Visakhapatnam","Vijayawada","Guntur","Thane","Navi Mumbai","Dehradun","Bhubaneswar","Guwahati","Patna"]
   },
   {
     "@context": "https://schema.org",
     "@type": "Service",
     "name": "Full home interior design & execution",
-    "provider": { "@type": "Organization", "name": "HomeLane" },
+    "provider": { "@type": "Organization", "name": "Anvaya" },
     "areaServed": ["Bengaluru","Mumbai","Delhi","Noida","Patna"],
     "offers": {
       "@type": "Offer",
@@ -50,712 +51,68 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      { "@type": "Question", "name": "How much does a 3BHK home interior cost with HomeLane?", "acceptedAnswer": { "@type": "Answer", "text": "An illustrative starting range is ₹7.5L–₹13.5L for a full 3BHK; your exact price is confirmed for free before you commit, using HomeLane's Cost Calculator." } },
-      { "@type": "Question", "name": "Is HomeLane available in my city?", "acceptedAnswer": { "@type": "Answer", "text": "HomeLane currently operates in 40 Indian cities, including Bengaluru, Mumbai, Delhi, Noida and Patna. Enter your city on this page for a direct yes/no." } },
-      { "@type": "Question", "name": "Does HomeLane guarantee delivery dates?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. HomeLane commits to an on-time delivery date in writing at the start of every project." } },
-      { "@type": "Question", "name": "Is there a warranty on HomeLane interiors?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every HomeLane project is backed by a written warranty covering workmanship and materials after handover." } },
-      { "@type": "Question", "name": "How is HomeLane different from other interior providers?", "acceptedAnswer": { "@type": "Answer", "text": "HomeLane commits to fixed pricing in writing, on-time delivery, and a written warranty, with your exact cost confirmed free before you commit — rather than making comparative claims about any named competitor." } }
+      { "@type": "Question", "name": "How much does a 3BHK home interior cost with Anvaya?", "acceptedAnswer": { "@type": "Answer", "text": "An illustrative starting range is ₹7.5L–₹13.5L for a full 3BHK; your exact price is confirmed for free before you commit, using Anvaya's Cost Calculator." } },
+      { "@type": "Question", "name": "Is Anvaya available in my city?", "acceptedAnswer": { "@type": "Answer", "text": "Anvaya currently operates in 40 Indian cities, including Bengaluru, Mumbai, Delhi, Noida and Patna. Enter your city on this page for a direct yes/no." } },
+      { "@type": "Question", "name": "Does Anvaya guarantee delivery dates?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Anvaya commits to an on-time delivery date in writing at the start of every project." } },
+      { "@type": "Question", "name": "Is there a warranty on Anvaya interiors?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every Anvaya project is backed by a written warranty covering workmanship and materials after handover." } },
+      { "@type": "Question", "name": "How is Anvaya different from other interior providers?", "acceptedAnswer": { "@type": "Answer", "text": "Anvaya commits to fixed pricing in writing, on-time delivery, and a written warranty, with your exact cost confirmed free before you commit — rather than making comparative claims about any named competitor." } }
     ]
   }
 ]
 </script>
-
-<style>
-  /* ===================== Inline critical CSS =====================
-     Everything the page needs lives in this one block: no external
-     stylesheet request, no web font request, no images. This is what
-     satisfies speed=slow ("inline-critical-CSS, defer nothing heavy, no
-     large images") for every visitor, not just slow ones — there is
-     simply nothing heavy to defer. */
-  :root{
-    --accent:#E63E2B;
-    --accent-dark:#c22f1f;
-    --ink:#1c1c1c;
-    --ink-soft:#5f5f5f;
-    --bg:#f7f5f3;
-    --card:#ffffff;
-    --border:#e7e2de;
-    --yes:#1a7f37;
-    --no:#b34700;
-    --radius:14px;
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    background:var(--bg);
-    color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.45;
-    -webkit-text-size-adjust:100%;
-  }
-  .wrap{max-width:480px;margin:0 auto;padding:0 1rem;}
-  a{color:inherit;}
-  h1,h2{line-height:1.25;margin:0 0 .5rem;}
-  h1{font-size:1.5rem;}
-  h2{font-size:1.05rem;color:var(--ink);}
-  p{margin:.4rem 0;}
-  .accent{color:var(--accent);}
-
-  header.topbar{
-    background:var(--card);
-    border-bottom:1px solid var(--border);
-    position:sticky;top:0;z-index:5;
-  }
-  header.topbar .wrap{
-    display:flex;align-items:center;justify-content:space-between;
-    padding-top:.75rem;padding-bottom:.75rem;
-  }
-  .logo{font-weight:700;font-size:1.1rem;}
-  .tiny-cta{
-    background:var(--accent);color:#fff;font-size:.8rem;font-weight:600;
-    padding:.5rem .75rem;border-radius:999px;text-decoration:none;white-space:nowrap;
-  }
-
-  main#app{padding:1rem 0 .5rem;}
-  section{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:1rem;
-    margin:0 1rem 1rem;
-  }
-  .sub{color:var(--ink-soft);font-size:.95rem;}
-
-  /* Lead blocks */
-  .lead{border-left:4px solid var(--accent);}
-  .price-block{background:#fff6f5;border-radius:10px;padding:.85rem;margin:.75rem 0;}
-  .price-range{font-size:1.6rem;font-weight:800;color:var(--accent-dark);}
-  .price-label{font-weight:600;font-size:.85rem;margin-top:.25rem;}
-  .price-disclaimer{font-size:.78rem;color:var(--ink-soft);}
-
-  .btn{
-    display:inline-block;width:100%;text-align:center;
-    padding:.9rem 1rem;border-radius:10px;font-weight:700;
-    text-decoration:none;margin-top:.5rem;min-height:48px;
-  }
-  .btn-primary{background:var(--accent);color:#fff;}
-  .btn-primary:active{background:var(--accent-dark);}
-
-  .commit-grid{list-style:none;margin:.75rem 0;padding:0;display:grid;gap:.6rem;}
-  .commit-grid li{
-    background:var(--bg);border-radius:10px;padding:.65rem .75rem;
-    display:flex;flex-direction:column;gap:.15rem;
-  }
-  .commit-grid li strong{font-size:.92rem;}
-  .commit-grid li span{font-size:.85rem;color:var(--ink-soft);}
-
-  .big-answer{
-    font-size:2.4rem;font-weight:900;letter-spacing:.02em;margin-bottom:.25rem;
-  }
-  .lead-delivery.yes .big-answer{color:var(--yes);}
-  .lead-delivery.no .big-answer{color:var(--no);}
-  .delivery-sentence{font-size:.95rem;}
-
-  .tap-options{display:grid;gap:.6rem;margin-top:.75rem;}
-  .tap-option{
-    display:block;padding:.85rem 1rem;border:1px solid var(--border);
-    border-radius:10px;text-decoration:none;font-weight:600;
-    background:var(--bg);min-height:48px;
-  }
-  .tap-option:active{background:#efe9e5;}
-
-  .key-facts ul{margin:.4rem 0 0;padding-left:1.1rem;}
-  .key-facts li{font-size:.92rem;margin:.4rem 0;}
-
-  .commit-strip ul{list-style:none;margin:.4rem 0 0;padding:0;}
-  .commit-strip li{font-size:.88rem;color:var(--ink-soft);margin:.5rem 0;}
-  .commit-strip li strong{color:var(--ink);}
-
-  .faq details{border-top:1px solid var(--border);padding:.6rem 0;}
-  .faq details:first-of-type{border-top:none;}
-  .faq summary{font-weight:600;font-size:.92rem;cursor:pointer;}
-  .faq p{font-size:.88rem;color:var(--ink-soft);}
-
-  .reviews blockquote{margin:.75rem 0;padding:0;border-left:3px solid var(--accent);padding-left:.75rem;}
-  .reviews blockquote p{font-size:.9rem;font-style:italic;}
-  .reviews cite{font-size:.78rem;color:var(--ink-soft);font-style:normal;}
-
-  footer{padding:1rem;text-align:center;color:var(--ink-soft);font-size:.78rem;}
-  #debug-line{
-    margin-top:.75rem;text-align:left;font-size:.68rem;line-height:1.5;
-    background:#fffbe6;border:1px dashed #d8c86b;border-radius:8px;
-    padding:.5rem .6rem;color:#54471c;word-break:break-word;
-  }
-  #debug-line code{background:#00000010;padding:0 .25rem;border-radius:4px;}
-
-  /* speed=slow: drop motion to save CPU/paint cost on low-end or
-     constrained devices. There is nothing to lazy-load or defer here
-     (no images, no web fonts, no external requests either way), so this
-     is the one real lever left to pull for a slow visitor. */
-  html[data-speed="slow"] *{transition:none!important;animation:none!important;}
-
-  @media (min-width:480px){
-    section{margin-left:auto;margin-right:auto;max-width:448px;}
-  }
-</style>
 </head>
-<body>
+<body id="top">
 
 <header class="topbar">
-  <div class="wrap">
-    <span class="logo">Home<span class="accent">Lane</span></span>
+  <div class="wrap header-row">
+    <a class="brand-mark" href="#top" aria-label="Anvaya home">
+      <img src="assets/logo.svg" width="32" height="32" alt="">
+      <span class="logo">Anvaya</span>
+    </a>
     <a class="tiny-cta" href="#consultation">Book free consult</a>
   </div>
+  <nav class="site-nav wrap" aria-label="Page sections" id="site-nav"><!-- filled by sections/header.js --></nav>
 </header>
 
 <main id="app">
-  <!--
-    STATIC NO-JS FALLBACK
-    ======================
-    Hand-written mirror of the "generic / safe" composed state — the exact
-    same guardrail fallback the script uses when it can't safely compose a
-    personalised view. If JavaScript is disabled, this is the whole page:
-    it is 100% approved copy, correct today, and never contradicts what the
-    script would otherwise render. composePage() overwrites everything
-    inside #app on load with the personalised, query-param-driven version.
-  -->
-  <section class="lead lead-generic">
-    <h1>Full home interiors, with the cost confirmed before you commit.</h1>
-    <p class="sub">Fixed pricing in writing. On-time delivery. A written warranty. Available in 40 Indian cities.</p>
-    <a class="btn btn-primary" href="#consultation">Book a free consultation for an exact quote →</a>
-  </section>
-
-  <section class="key-facts" aria-label="Key facts">
-    <h2>Key facts</h2>
-    <ul>
-      <li data-claim-type="price">A full 3BHK home interior with HomeLane typically starts in an illustrative ₹7.5L–₹13.5L range, confirmed exactly and for free before you commit.</li>
-      <li data-claim-type="price">The average HomeLane home-interiors project is valued at about ₹10 lakh.</li>
-      <li data-claim-type="serviceability">HomeLane currently delivers full home interiors in 40 Indian cities, including Bengaluru, Mumbai, Delhi, Noida and Patna.</li>
-      <li data-claim-type="timeline">HomeLane commits to an on-time delivery date in writing at the start of every project.</li>
-      <li data-claim-type="warranty">Every HomeLane project carries a written warranty on workmanship and materials after handover.</li>
-    </ul>
-  </section>
-
-  <section class="commit-strip">
-    <h2>What HomeLane commits to</h2>
-    <ul>
-      <li data-claim-type="price"><strong>Fixed pricing, in writing:</strong> The price on your signed agreement is the price you pay — no surprise cost escalations once work begins.</li>
-      <li data-claim-type="timeline"><strong>On-time delivery:</strong> Your project is delivered on the date committed in your agreement, tracked stage-by-stage so you always know where it stands.</li>
-      <li data-claim-type="warranty"><strong>Warranty on your interiors:</strong> Every HomeLane project is backed by a written warranty covering workmanship and materials after handover.</li>
-      <li data-claim-type="price"><strong>Cost known before you commit:</strong> HomeLane's in-house Cost Calculator gives you a firm, itemised cost before you sign — not after.</li>
-    </ul>
-  </section>
-
-  <section class="faq">
-    <h2>Frequently asked</h2>
-    <details>
-      <summary>How much does a 3BHK home interior cost with HomeLane?</summary>
-      <p data-claim-type="price">An illustrative starting range is ₹7.5L–₹13.5L for a full 3BHK; your exact price is confirmed for free before you commit, using HomeLane's Cost Calculator.</p>
-    </details>
-    <details>
-      <summary>Is HomeLane available in my city?</summary>
-      <p data-claim-type="serviceability">HomeLane currently operates in 40 Indian cities, including Bengaluru, Mumbai, Delhi, Noida and Patna. Enter your city on this page for a direct yes/no.</p>
-    </details>
-    <details>
-      <summary>Does HomeLane guarantee delivery dates?</summary>
-      <p data-claim-type="timeline">Yes. HomeLane commits to an on-time delivery date in writing at the start of every project.</p>
-    </details>
-    <details>
-      <summary>Is there a warranty on HomeLane interiors?</summary>
-      <p data-claim-type="warranty">Yes. Every HomeLane project is backed by a written warranty covering workmanship and materials after handover.</p>
-    </details>
-    <details>
-      <summary>How is HomeLane different from other interior providers?</summary>
-      <p data-claim-type="price">HomeLane commits to fixed pricing in writing, on-time delivery, and a written warranty, with your exact cost confirmed free before you commit — rather than making comparative claims about any named competitor.</p>
-    </details>
-  </section>
-
-  <section class="reviews">
-    <h2>What customers say</h2>
-    <blockquote data-claim-type="review">
-      <p>"Our 3BHK was delivered on the date they committed to, and the final bill matched the signed quote exactly."</p>
-      <cite>Verified HomeLane customer, Bengaluru · ★★★★★</cite>
-    </blockquote>
-    <blockquote data-claim-type="review">
-      <p>"The Cost Calculator gave us a firm number before we signed anything — no surprises during the project."</p>
-      <cite>Verified HomeLane customer, Noida · ★★★★★</cite>
-    </blockquote>
-  </section>
+  <!-- Populated entirely by core/compose.js's composePage(), which reads
+       ?intent / ?source / ?city / ?speed and rebuilds this on load. See
+       the <noscript> block below for what a JS-disabled visitor sees
+       instead. -->
 </main>
 
+<noscript>
+  <p class="noscript-note">
+    This page personalises itself using JavaScript, which is off in your
+    browser. Full home interiors, with the cost confirmed before you
+    commit — fixed pricing in writing, on-time delivery, and a written
+    warranty, in 40 Indian cities. Contact Anvaya to book a free
+    consultation for an exact quote.
+  </p>
+</noscript>
+
 <footer>
-  <p id="consultation">HomeLane · Full home interiors across India · This is a self-composing demo page.</p>
+  <p id="consultation">Anvaya · Full home interiors across India · This is a self-composing demo page.</p>
   <div id="debug-line" hidden></div>
 </footer>
 
-<script>
-'use strict';
-
-/* =====================================================================
-   APPROVED_CONTENT — the one human-approved content library.
-   -----------------------------------------------------------------
-   Every string a visitor can ever see comes from this object. The page
-   below only ever SELECTS, REORDERS and (for the city name only, which is
-   not a claim) INTERPOLATES pieces of this object — it never writes a new
-   sentence, price, date, or comparison. Treat this object as content a
-   human has signed off on; changing what renders means editing this
-   object, not the render functions.
-   ===================================================================== */
-const APPROVED_CONTENT = Object.freeze({
-  brand: {
-    name: "HomeLane",
-    legalName: "HomeLane (Landmark Design Ideas Pvt Ltd)",
-    url: "https://www.homelane.com",
-    description: "HomeLane designs, manufactures and installs full home interiors across India, with fixed pricing confirmed before you commit, on-time delivery, and a written warranty on all work."
-  },
-
-  // Hardcoded serviceability list — the only source of truth for the
-  // delivery_check composition rule. 40 cities, incl. the ones named in
-  // the brief (Bengaluru, Mumbai, Delhi, Noida, Patna).
-  cities: [
-    "Bengaluru","Mumbai","Delhi","Noida","Gurugram","Ghaziabad","Faridabad",
-    "Pune","Hyderabad","Chennai","Kolkata","Ahmedabad","Surat","Vadodara",
-    "Rajkot","Jaipur","Lucknow","Kanpur","Chandigarh","Mohali","Ludhiana",
-    "Amritsar","Nagpur","Nashik","Indore","Bhopal","Coimbatore","Kochi",
-    "Thiruvananthapuram","Mysuru","Mangaluru","Visakhapatnam","Vijayawada",
-    "Guntur","Thane","Navi Mumbai","Dehradun","Bhubaneswar","Guwahati","Patna"
-  ],
-
-  price3bhk: {
-    claimType: "price",
-    label: "3BHK full-home interiors — illustrative starting range",
-    lowText: "₹7.5L", highText: "₹13.5L",
-    low: 750000, high: 1350000, currency: "INR",
-    disclaimer: "Illustrative starting range for planning only — not a quote. Your exact price depends on city, carpet area, and finish level, and is confirmed for free before you sign anything."
-  },
-
-  commitments: [
-    { id:"fixed_pricing",    claimType:"price",    title:"Fixed pricing, in writing", text:"The price on your signed agreement is the price you pay — no surprise cost escalations once work begins." },
-    { id:"on_time_delivery", claimType:"timeline", title:"On-time delivery",          text:"Your project is delivered on the date committed in your agreement, tracked stage-by-stage so you always know where it stands." },
-    { id:"warranty",         claimType:"warranty", title:"Warranty on your interiors",text:"Every HomeLane project is backed by a written warranty covering workmanship and materials after handover." },
-    { id:"cost_known_upfront",claimType:"price",   title:"Cost known before you commit", text:"HomeLane's in-house Cost Calculator gives you a firm, itemised cost before you sign — not after." }
-  ],
-
-  // {city} is substituted with the visitor's own (escaped) query-param
-  // value — a name echo, not a generated claim. The yes/no itself comes
-  // only from a lookup against `cities` above.
-  serviceability: {
-    claimType: "serviceability",
-    yesTemplate: "Yes — HomeLane is live in {city}, with a full design and installation team on the ground.",
-    noTemplate: "HomeLane isn't operating in {city} yet. We're in 40 Indian cities today — book a free consultation and we'll notify you when we launch there."
-  },
-
-  questionCapture: {
-    prompt: "What brought you here today?",
-    options: [
-      { label:"How much will my home cost?", routeIntent:"3bhk_cost" },
-      { label:"How is HomeLane different?",  routeIntent:"vs_competitor" },
-      { label:"Is HomeLane in my city?",     routeIntent:"delivery_check" }
-    ]
-  },
-
-  ctas: {
-    calculator:   { label:"Try the free Cost Calculator", href:"#consultation" },
-    consultation: { label:"Book a free design consultation", href:"#consultation" },
-    exactQuote:   { label:"Book a free consultation for an exact quote", href:"#consultation" },
-    notify:       { label:"Notify me when HomeLane launches here", href:"#consultation" }
-  },
-
-  keyFacts: [
-    { id:"kf_price",    claimType:"price",         text:"A full 3BHK home interior with HomeLane typically starts in an illustrative ₹7.5L–₹13.5L range, confirmed exactly and for free before you commit." },
-    { id:"kf_avg",      claimType:"price",         text:"The average HomeLane home-interiors project is valued at about ₹10 lakh." },
-    { id:"kf_cities",   claimType:"serviceability",text:"HomeLane currently delivers full home interiors in 40 Indian cities, including Bengaluru, Mumbai, Delhi, Noida and Patna." },
-    { id:"kf_timeline", claimType:"timeline",      text:"HomeLane commits to an on-time delivery date in writing at the start of every project." },
-    { id:"kf_warranty", claimType:"warranty",      text:"Every HomeLane project carries a written warranty on workmanship and materials after handover." }
-  ],
-
-  faqs: [
-    { claimType:"price",         q:"How much does a 3BHK home interior cost with HomeLane?", a:"An illustrative starting range is ₹7.5L–₹13.5L for a full 3BHK; your exact price is confirmed for free before you commit, using HomeLane's Cost Calculator." },
-    { claimType:"serviceability",q:"Is HomeLane available in my city?", a:"HomeLane currently operates in 40 Indian cities, including Bengaluru, Mumbai, Delhi, Noida and Patna. Enter your city on this page for a direct yes/no." },
-    { claimType:"timeline",      q:"Does HomeLane guarantee delivery dates?", a:"Yes. HomeLane commits to an on-time delivery date in writing at the start of every project." },
-    { claimType:"warranty",      q:"Is there a warranty on HomeLane interiors?", a:"Yes. Every HomeLane project is backed by a written warranty covering workmanship and materials after handover." },
-    { claimType:"price",         q:"How is HomeLane different from other interior providers?", a:"HomeLane commits to fixed pricing in writing, on-time delivery, and a written warranty, with your exact cost confirmed free before you commit — rather than making comparative claims about any named competitor." }
-  ],
-
-  reviews: [
-    { claimType:"review", author:"Verified HomeLane customer, Bengaluru", rating:5, text:"Our 3BHK was delivered on the date they committed to, and the final bill matched the signed quote exactly." },
-    { claimType:"review", author:"Verified HomeLane customer, Noida",     rating:5, text:"The Cost Calculator gave us a firm number before we signed anything — no surprises during the project." }
-  ],
-
-  generic: {
-    headline: "Full home interiors, with the cost confirmed before you commit.",
-    sub: "Fixed pricing in writing. On-time delivery. A written warranty. Available in 40 Indian cities."
-  }
-});
-
-/* =====================================================================
-   GUARDRAIL LAYER
-   -----------------------------------------------------------------
-   APPROVED_BLOCK_REGISTRY is built once, by walking APPROVED_CONTENT and
-   collecting every object that carries a claimType. canRender() then
-   checks REFERENCE membership in that registry (not just "looks similar")
-   — so only literal objects that live inside APPROVED_CONTENT can ever be
-   rendered as a claim. Any code path that constructs its own object (e.g.
-   a hypothetical "cheaper than a named competitor" string built on the
-   fly) is *not* in the registry and canRender() rejects it, no matter how
-   the block is labelled.
-   ===================================================================== */
-const APPROVED_BLOCK_REGISTRY = new WeakSet();
-(function registerApprovedBlocks(node) {
-  if (node && typeof node === 'object') {
-    if (!Array.isArray(node) && node.claimType) APPROVED_BLOCK_REGISTRY.add(node);
-    Object.values(node).forEach(registerApprovedBlocks);
-  }
-})(APPROVED_CONTENT);
-
-const ALLOWED_CLAIM_TYPES = ['price', 'timeline', 'warranty', 'serviceability', 'review'];
-
-// canRender(block): the single gate every claim-bearing piece of copy must
-// pass through before it reaches the DOM.
-function canRender(block) {
-  if (!block || typeof block !== 'object') return false;
-  // Non-claim structural content (CTA labels, headings, the question
-  // capture prompt) is free to render — it carries no price/timeline/
-  // warranty/competitor claim, so it isn't gated by claim provenance.
-  if (!block.claimType) return true;
-  // 1) The claim type itself must be one we allow to exist at all. A
-  //    "competitor" claimType, for instance, is not on this list, so it is
-  //    blocked outright even before checking provenance.
-  if (!ALLOWED_CLAIM_TYPES.includes(block.claimType)) return false;
-  // 2) The object must be the literal one from APPROVED_CONTENT — not a
-  //    lookalike built elsewhere in the code.
-  if (!APPROVED_BLOCK_REGISTRY.has(block)) return false;
-  // 3) The approved string it needs to render must actually be present
-  //    and non-empty. A required-but-missing string degrades gracefully
-  //    (the caller falls back to the safe generic block) rather than
-  //    rendering a hole or inventing filler.
-  const text = block.text || block.sentence || block.a || block.yesTemplate || block.noTemplate || block.disclaimer || block.lowText;
-  if (!text || typeof text !== 'string' || !text.trim()) return false;
-  // price3bhk carries its range as a pair — both ends must be present too.
-  if (block === APPROVED_CONTENT.price3bhk && !(block.lowText && block.highText)) return false;
-  return true;
-}
-
-// --- Guardrail demonstration (not on any real render path) -------------
-// Simulates a hypothetical attempt to sneak in an unapproved, named-
-// competitor comparison. It can never reach the page — this exists only
-// so the block is visibly rejected in the ?debug=1 output for reviewers.
-const GUARDRAIL_DEMO_ATTEMPT = { claimType: 'competitor', text: 'Cheaper than [Competitor X]' };
-const guardrailBlockedCompetitorClaim = !canRender(GUARDRAIL_DEMO_ATTEMPT);
-
-/* ===================== small helpers ===================== */
-function escapeHtml(str) {
-  return String(str == null ? '' : str)
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-}
-
-function checkServiceability(cityInput) {
-  if (!cityInput) return { isServiceable: false, matchedCity: null };
-  const norm = cityInput.trim().toLowerCase();
-  const match = APPROVED_CONTENT.cities.find(c => c.toLowerCase() === norm);
-  return { isServiceable: !!match, matchedCity: match || cityInput };
-}
-
-function getParams() {
-  const sp = new URLSearchParams(window.location.search);
-  return {
-    intent: (sp.get('intent') || '').trim().toLowerCase(),
-    source: (sp.get('source') || '').trim().toLowerCase(),
-    city:   (sp.get('city') || '').trim(),
-    speed:  (sp.get('speed') || '').trim().toLowerCase(),
-    debug:  sp.get('debug') === '1'
-  };
-}
-
-/* =====================================================================
-   COMPOSITION LOGIC
-   -----------------------------------------------------------------
-   This is the only place that decides WHICH approved block leads. It
-   never touches copy directly — it picks a rule name, and the renderers
-   below turn that rule into approved-content-only HTML.
-   ===================================================================== */
-const KNOWN_INTENTS = ['3bhk_cost', 'vs_competitor', 'delivery_check', 'unknown'];
-
-function determineRule(p) {
-  // Rule 1 — assistant-referred visitors arrive pre-informed: skip the
-  // pitch entirely and go straight to intent capture, regardless of
-  // whatever intent value also happens to be on the URL.
-  if (p.source === 'assistant') {
-    return { rule: 'capture', reason: 'source=assistant → skip pitch, capture intent' };
-  }
-  // Rule 2 — no usable intent: also capture.
-  if (!p.intent || p.intent === 'unknown' || !KNOWN_INTENTS.includes(p.intent)) {
-    const why = !p.intent ? 'intent missing'
-      : p.intent === 'unknown' ? 'intent=unknown'
-      : `intent unrecognised ("${p.intent}")`;
-    return { rule: 'capture', reason: `${why} → capture (safe default)` };
-  }
-  // Rule 3 — delivery_check needs a city to answer anything. Missing it is
-  // a required-parameter gap, so this degrades to the safe generic block
-  // rather than guessing or asking again inside the capture flow.
-  if (p.intent === 'delivery_check') {
-    if (!p.city) return { rule: 'generic_safe', reason: 'delivery_check without city → required param missing, degrade to safe generic' };
-    return { rule: 'delivery_check', reason: 'intent=delivery_check & city present' };
-  }
-  if (p.intent === '3bhk_cost')    return { rule: 'cost',    reason: 'intent=3bhk_cost' };
-  if (p.intent === 'vs_competitor')return { rule: 'compare', reason: 'intent=vs_competitor' };
-  // Unreachable given KNOWN_INTENTS above, kept as a last-resort guardrail.
-  return { rule: 'generic_safe', reason: 'fallthrough → safe generic' };
-}
-
-/* ===================== renderers: lead blocks ===================== */
-function renderCostLead() {
-  const price = APPROVED_CONTENT.price3bhk;
-  if (!canRender(price)) return renderGenericSafe(); // guardrail fallback
-  return `
-  <section class="lead lead-cost">
-    <h1>What will your 3BHK actually cost?</h1>
-    <div class="price-block" data-claim-type="price">
-      <div class="price-range">${escapeHtml(price.lowText)} – ${escapeHtml(price.highText)}</div>
-      <p class="price-label">${escapeHtml(price.label)}</p>
-      <p class="price-disclaimer">${escapeHtml(price.disclaimer)}</p>
-    </div>
-    <a class="btn btn-primary" href="${APPROVED_CONTENT.ctas.calculator.href}">${escapeHtml(APPROVED_CONTENT.ctas.calculator.label)} →</a>
-  </section>`;
-}
-
-function renderCompareLead() {
-  const commitments = APPROVED_CONTENT.commitments.filter(canRender);
-  if (!commitments.length) return renderGenericSafe();
-  return `
-  <section class="lead lead-compare">
-    <h1>What HomeLane commits to — in writing</h1>
-    <p class="sub">No named comparisons. Just what we guarantee, every project.</p>
-    <ul class="commit-grid">
-      ${commitments.map(c => `<li data-claim-type="${c.claimType}"><strong>${escapeHtml(c.title)}</strong><span>${escapeHtml(c.text)}</span></li>`).join('')}
-    </ul>
-    <a class="btn btn-primary" href="${APPROVED_CONTENT.ctas.consultation.href}">${escapeHtml(APPROVED_CONTENT.ctas.consultation.label)} →</a>
-  </section>`;
-}
-
-function renderDeliveryLead(params) {
-  const svc = APPROVED_CONTENT.serviceability;
-  if (!canRender(svc)) return renderGenericSafe();
-  const result = checkServiceability(params.city);
-  const isYes = result.isServiceable;
-  const template = isYes ? svc.yesTemplate : svc.noTemplate;
-  const sentence = template.replace('{city}', escapeHtml(result.matchedCity || params.city));
-  const cta = isYes ? APPROVED_CONTENT.ctas.consultation : APPROVED_CONTENT.ctas.notify;
-  return `
-  <section class="lead lead-delivery ${isYes ? 'yes' : 'no'}">
-    <div class="big-answer" data-claim-type="serviceability">${isYes ? 'YES' : 'NOT YET'}</div>
-    <p class="delivery-sentence" data-claim-type="serviceability">${sentence}</p>
-    <a class="btn btn-primary" href="${cta.href}">${escapeHtml(cta.label)} →</a>
-  </section>`;
-}
-
-function renderCapture() {
-  const qc = APPROVED_CONTENT.questionCapture;
-  const currentParams = new URLSearchParams(window.location.search);
-  const options = qc.options.map(opt => {
-    const sp = new URLSearchParams(currentParams);
-    sp.set('intent', opt.routeIntent);
-    return `<a class="tap-option" href="?${sp.toString()}">${escapeHtml(opt.label)}</a>`;
-  }).join('');
-  return `
-  <section class="lead lead-capture">
-    <h1>${escapeHtml(qc.prompt)}</h1>
-    <div class="tap-options">${options}</div>
-  </section>`;
-}
-
-function renderGenericSafe() {
-  const g = APPROVED_CONTENT.generic;
-  return `
-  <section class="lead lead-generic">
-    <h1>${escapeHtml(g.headline)}</h1>
-    <p class="sub">${escapeHtml(g.sub)}</p>
-    <a class="btn btn-primary" href="${APPROVED_CONTENT.ctas.exactQuote.href}">${escapeHtml(APPROVED_CONTENT.ctas.exactQuote.label)} →</a>
-  </section>`;
-}
-
-/* ===================== renderers: shared secondary content ===================== */
-function renderKeyFacts() {
-  const facts = APPROVED_CONTENT.keyFacts.filter(canRender);
-  if (!facts.length) return '';
-  return `
-  <section class="key-facts" aria-label="Key facts">
-    <h2>Key facts</h2>
-    <ul>${facts.map(f => `<li data-claim-type="${f.claimType}">${escapeHtml(f.text)}</li>`).join('')}</ul>
-  </section>`;
-}
-
-function renderCommitmentsStrip() {
-  const commitments = APPROVED_CONTENT.commitments.filter(canRender);
-  if (!commitments.length) return '';
-  return `
-  <section class="commit-strip">
-    <h2>What HomeLane commits to</h2>
-    <ul>${commitments.map(c => `<li data-claim-type="${c.claimType}"><strong>${escapeHtml(c.title)}:</strong> ${escapeHtml(c.text)}</li>`).join('')}</ul>
-  </section>`;
-}
-
-// Floats the most relevant FAQ to the top per active rule, without
-// changing any of the approved question/answer text itself.
-const FAQ_PRIORITY_INDEX = { cost: 0, delivery: 1, compare: 4 };
-function renderFaq(context) {
-  const faqs = APPROVED_CONTENT.faqs.filter(canRender);
-  if (!faqs.length) return '';
-  let ordered = faqs.slice();
-  if (context in FAQ_PRIORITY_INDEX) {
-    const idx = FAQ_PRIORITY_INDEX[context];
-    const item = ordered.splice(idx, 1)[0];
-    if (item) ordered.unshift(item);
-  }
-  return `
-  <section class="faq">
-    <h2>Frequently asked</h2>
-    ${ordered.map(f => `
-      <details>
-        <summary>${escapeHtml(f.q)}</summary>
-        <p data-claim-type="${f.claimType}">${escapeHtml(f.a)}</p>
-      </details>`).join('')}
-  </section>`;
-}
-
-function renderReviews() {
-  const reviews = APPROVED_CONTENT.reviews.filter(canRender);
-  if (!reviews.length) return '';
-  return `
-  <section class="reviews">
-    <h2>What customers say</h2>
-    ${reviews.map(r => `
-      <blockquote data-claim-type="review">
-        <p>"${escapeHtml(r.text)}"</p>
-        <cite>${escapeHtml(r.author)} · ${'★'.repeat(r.rating)}</cite>
-      </blockquote>`).join('')}
-  </section>`;
-}
-
-function renderSecondary(context) {
-  let out = renderKeyFacts();
-  if (context !== 'compare') out += renderCommitmentsStrip(); // avoid duplicating the compare lead
-  out += renderFaq(context);
-  out += renderReviews();
-  return out;
-}
-
-/* =====================================================================
-   MACHINE-READABLE LAYER — JSON-LD, rebuilt per active state
-   -----------------------------------------------------------------
-   Pulls exclusively from APPROVED_CONTENT (gated by canRender for every
-   claim-bearing field). For the delivery_check state it also folds in the
-   concrete yes/no for the visitor's city, built the same way the on-page
-   answer is: an approved template with the (escaped) city name substituted.
-   ===================================================================== */
-function buildJsonLd(state, params) {
-  const b = APPROVED_CONTENT.brand;
-  const organization = {
-    "@context": "https://schema.org",
-    "@type": "HomeAndConstructionBusiness",
-    "name": b.name,
-    "legalName": b.legalName,
-    "url": b.url,
-    "description": b.description,
-    "areaServed": APPROVED_CONTENT.cities
-  };
-
-  const price = APPROVED_CONTENT.price3bhk;
-  const service = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Full home interior design & execution",
-    "provider": { "@type": "Organization", "name": b.name },
-    "areaServed": APPROVED_CONTENT.cities
-  };
-  if (canRender(price)) {
-    service.offers = {
-      "@type": "Offer",
-      "priceCurrency": price.currency,
-      "priceSpecification": {
-        "@type": "PriceSpecification",
-        "minPrice": price.low,
-        "maxPrice": price.high,
-        "priceCurrency": price.currency
-      },
-      "description": price.disclaimer
-    };
-  }
-  const svc = APPROVED_CONTENT.serviceability;
-  if (state === 'delivery_check' && params && params.city && canRender(svc)) {
-    const result = checkServiceability(params.city);
-    const template = result.isServiceable ? svc.yesTemplate : svc.noTemplate;
-    service.additionalProperty = {
-      "@type": "PropertyValue",
-      "name": "serviceabilityCheck",
-      "value": template.replace('{city}', result.matchedCity || params.city)
-    };
-  }
-
-  const faqs = APPROVED_CONTENT.faqs.filter(canRender);
-  const faqPage = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": faqs.map(f => ({
-      "@type": "Question", "name": f.q,
-      "acceptedAnswer": { "@type": "Answer", "text": f.a }
-    }))
-  };
-
-  return [organization, service, faqPage];
-}
-
-function updateJsonLd(state, params) {
-  const ldScript = document.getElementById('ld-json');
-  if (!ldScript) return;
-  const data = buildJsonLd(state, params);
-  // Escape "<" so a literal script-closing tag can never appear inside the JSON text.
-  ldScript.textContent = JSON.stringify(data, null, 2).replace(/</g, '\\u003c');
-}
-
-/* ===================== debug line (?debug=1) ===================== */
-function renderDebug(params, rule, reason) {
-  const el = document.getElementById('debug-line');
-  if (!el) return;
-  el.hidden = false;
-  el.innerHTML =
-    `<strong>debug</strong> — params read: intent=<code>${escapeHtml(params.intent) || '∅'}</code>, ` +
-    `source=<code>${escapeHtml(params.source) || '∅'}</code>, ` +
-    `city=<code>${escapeHtml(params.city) || '∅'}</code>, ` +
-    `speed=<code>${escapeHtml(params.speed) || '∅'}</code><br>` +
-    `composition rule fired: <code>${rule}</code> — ${escapeHtml(reason)}<br>` +
-    `guardrail check — unapproved named-competitor claim blocked: <code>${guardrailBlockedCompetitorClaim}</code>`;
-}
-
-/* ===================== speed handling ===================== */
-function applySpeedMode(speed) {
-  document.documentElement.setAttribute('data-speed', speed === 'slow' ? 'slow' : 'fast');
-}
-
-/* ===================== top-level composition ===================== */
-function composePage() {
-  const params = getParams();
-  const { rule, reason } = determineRule(params);
-  const app = document.getElementById('app');
-
-  let leadHtml, faqContext, activeState;
-  switch (rule) {
-    case 'cost':
-      leadHtml = renderCostLead(); faqContext = 'cost'; activeState = 'cost'; break;
-    case 'compare':
-      leadHtml = renderCompareLead(); faqContext = 'compare'; activeState = 'compare'; break;
-    case 'delivery_check':
-      leadHtml = renderDeliveryLead(params); faqContext = 'delivery'; activeState = 'delivery_check'; break;
-    case 'capture':
-      leadHtml = renderCapture(); faqContext = 'capture'; activeState = 'capture'; break;
-    case 'generic_safe':
-    default:
-      leadHtml = renderGenericSafe(); faqContext = 'generic'; activeState = 'generic_safe'; break;
-  }
-
-  app.innerHTML = leadHtml + renderSecondary(faqContext);
-  updateJsonLd(activeState, params);
-  applySpeedMode(params.speed);
-  if (params.debug) renderDebug(params, rule, reason);
-}
-
-document.addEventListener('DOMContentLoaded', composePage);
-</script>
+<!--
+  Plain, non-module scripts sharing one global scope, loaded in
+  dependency order — no bundler, no build step, so GitHub Pages can serve
+  this directory as-is. Each file below is one section (or one layer) of
+  the page: change a section by editing its one file.
+-->
+<script src="content.js"></script>
+<script src="core/guardrail.js"></script>
+<script src="core/helpers.js"></script>
+<script src="sections/lead.js"></script>
+<script src="sections/key-facts.js"></script>
+<script src="sections/virtual-tour.js"></script>
+<script src="sections/commitments.js"></script>
+<script src="sections/faq.js"></script>
+<script src="sections/reviews.js"></script>
+<script src="sections/header.js"></script>
+<script src="core/jsonld.js"></script>
+<script src="core/compose.js"></script>
 </body>
 </html>

@@ -1,0 +1,195 @@
+/* =====================================================================
+   styles.css — all visual rules for the page, in one file.
+   Change colours, spacing or the look of any section here; the section
+   files under sections/ only ever produce class names and data
+   attributes, never inline styles.
+   ===================================================================== */
+:root{
+  --accent:#E63E2B;
+  --accent-dark:#c22f1f;
+  --ink:#1c1c1c;
+  --ink-soft:#5f5f5f;
+  --bg:#f7f5f3;
+  --card:#ffffff;
+  --border:#e7e2de;
+  --yes:#1a7f37;
+  --no:#b34700;
+  --radius:14px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.45;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:480px;margin:0 auto;padding:0 1rem;}
+a{color:inherit;}
+h1,h2{line-height:1.25;margin:0 0 .5rem;}
+h1{font-size:1.5rem;}
+h2{font-size:1.05rem;color:var(--ink);}
+p{margin:.4rem 0;}
+.accent{color:var(--accent);}
+
+/* ===================== header ===================== */
+header.topbar{
+  background:var(--card);
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:5;
+}
+.header-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:.75rem;padding-bottom:.6rem;
+}
+.brand-mark{display:flex;align-items:center;gap:.5rem;text-decoration:none;}
+.brand-mark img{display:block;border-radius:9px;}
+.logo{font-weight:700;font-size:1.1rem;color:var(--ink);}
+.tiny-cta{
+  background:var(--accent);color:#fff;font-size:.8rem;font-weight:600;
+  padding:.5rem .75rem;border-radius:999px;text-decoration:none;white-space:nowrap;
+}
+.site-nav{
+  display:flex;gap:.4rem;overflow-x:auto;padding:0 1rem .65rem;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
+}
+.site-nav::-webkit-scrollbar{display:none;}
+.site-nav a{
+  flex:none;font-size:.78rem;font-weight:600;color:var(--ink-soft);
+  text-decoration:none;padding:.35rem .65rem;border-radius:999px;
+  background:var(--bg);white-space:nowrap;border:1px solid var(--border);
+}
+
+main#app{padding:1rem 0 .5rem;}
+section{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1rem;
+  margin:0 1rem 1rem;
+}
+.sub{color:var(--ink-soft);font-size:.95rem;}
+
+/* Lead blocks */
+.lead{border-left:4px solid var(--accent);}
+.price-block{background:#fff6f5;border-radius:10px;padding:.85rem;margin:.75rem 0;}
+.price-range{font-size:1.6rem;font-weight:800;color:var(--accent-dark);}
+.price-label{font-weight:600;font-size:.85rem;margin-top:.25rem;}
+.price-disclaimer{font-size:.78rem;color:var(--ink-soft);}
+
+.btn{
+  display:inline-block;width:100%;text-align:center;
+  padding:.9rem 1rem;border-radius:10px;font-weight:700;
+  text-decoration:none;margin-top:.5rem;min-height:48px;
+}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:active{background:var(--accent-dark);}
+
+.commit-grid{list-style:none;margin:.75rem 0;padding:0;display:grid;gap:.6rem;}
+.commit-grid li{
+  background:var(--bg);border-radius:10px;padding:.65rem .75rem;
+  display:flex;flex-direction:column;gap:.15rem;
+}
+.commit-grid li strong{font-size:.92rem;}
+.commit-grid li span{font-size:.85rem;color:var(--ink-soft);}
+
+.big-answer{
+  font-size:2.4rem;font-weight:900;letter-spacing:.02em;margin-bottom:.25rem;
+}
+.lead-delivery.yes .big-answer{color:var(--yes);}
+.lead-delivery.no .big-answer{color:var(--no);}
+.delivery-sentence{font-size:.95rem;}
+
+.tap-options{display:grid;gap:.6rem;margin-top:.75rem;}
+.tap-option{
+  display:block;padding:.85rem 1rem;border:1px solid var(--border);
+  border-radius:10px;text-decoration:none;font-weight:600;
+  background:var(--bg);min-height:48px;
+}
+.tap-option:active{background:#efe9e5;}
+
+.key-facts ul{margin:.4rem 0 0;padding-left:1.1rem;}
+.key-facts li{font-size:.92rem;margin:.4rem 0;}
+
+.commit-strip ul{list-style:none;margin:.4rem 0 0;padding:0;}
+.commit-strip li{font-size:.88rem;color:var(--ink-soft);margin:.5rem 0;}
+.commit-strip li strong{color:var(--ink);}
+
+.faq details{border-top:1px solid var(--border);padding:.6rem 0;}
+.faq details:first-of-type{border-top:none;}
+.faq summary{font-weight:600;font-size:.92rem;cursor:pointer;}
+.faq p{font-size:.88rem;color:var(--ink-soft);}
+
+.reviews blockquote{margin:.75rem 0;padding:0;border-left:3px solid var(--accent);padding-left:.75rem;}
+.reviews blockquote p{font-size:.9rem;font-style:italic;}
+.reviews cite{font-size:.78rem;color:var(--ink-soft);font-style:normal;}
+
+/* ===================== 360° virtual tour ===================== */
+.tour-viewport{
+  position:relative;overflow:hidden;border-radius:10px;height:170px;
+  touch-action:pan-y;background:#e9e4de;margin:.75rem 0;cursor:grab;
+  user-select:none;
+}
+.tour-viewport:active{cursor:grabbing;}
+.tour-strip{display:flex;height:100%;width:max-content;will-change:transform;}
+.room-segment{
+  flex:0 0 280px;height:100%;position:relative;
+  background:linear-gradient(to bottom, #f3efe9 0%, #f3efe9 62%, #ddd5ca 62%, #ddd5ca 100%);
+  border-right:1px solid rgba(0,0,0,.06);
+}
+.tour-window{
+  position:absolute;top:22px;left:24px;width:64px;height:52px;border-radius:4px;
+  background:linear-gradient(180deg,#bcdcf2,#e8f4fb);border:4px solid #fff;
+  box-shadow:0 0 0 1px rgba(0,0,0,.08);
+}
+.tour-window::before,.tour-window::after{
+  content:"";position:absolute;background:#fff;
+}
+.tour-window::before{left:50%;top:0;bottom:0;width:3px;transform:translateX(-50%);}
+.tour-window::after{top:50%;left:0;right:0;height:3px;transform:translateY(-50%);}
+.tour-sofa{
+  position:absolute;left:110px;bottom:26px;width:130px;height:34px;border-radius:8px;
+  background:var(--accent);
+}
+.tour-sofa::before{
+  content:"";position:absolute;left:-4px;right:-4px;top:-16px;height:20px;border-radius:8px;
+  background:var(--accent-dark);
+}
+.tour-plant{
+  position:absolute;right:26px;bottom:24px;width:16px;height:22px;border-radius:3px;
+  background:#8a7360;
+}
+.tour-plant::before{
+  content:"";position:absolute;left:50%;bottom:100%;width:36px;height:36px;border-radius:50%;
+  background:#4f7a4a;transform:translateX(-50%);
+}
+.tour-hint{
+  position:absolute;bottom:.5rem;left:50%;transform:translateX(-50%);
+  background:rgba(0,0,0,.55);color:#fff;font-size:.68rem;font-weight:600;
+  padding:.25rem .6rem;border-radius:999px;pointer-events:none;white-space:nowrap;
+}
+.tour-caption{font-size:.78rem;color:var(--ink-soft);}
+
+footer{padding:1rem;text-align:center;color:var(--ink-soft);font-size:.78rem;}
+#debug-line{
+  margin-top:.75rem;text-align:left;font-size:.68rem;line-height:1.5;
+  background:#fffbe6;border:1px dashed #d8c86b;border-radius:8px;
+  padding:.5rem .6rem;color:#54471c;word-break:break-word;
+}
+#debug-line code{background:#00000010;padding:0 .25rem;border-radius:4px;}
+.noscript-note{
+  margin:1rem;padding:1rem;background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);font-size:.9rem;
+}
+
+/* speed=slow: drop motion to save CPU/paint cost on low-end or
+   constrained devices. There is nothing to lazy-load or defer here
+   (no images, no web fonts, no external requests either way), so this
+   is the one real lever left to pull for a slow visitor. */
+html[data-speed="slow"] *{transition:none!important;animation:none!important;}
+
+@media (min-width:480px){
+  section{margin-left:auto;margin-right:auto;max-width:448px;}
+}
