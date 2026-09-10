@@ -67,14 +67,16 @@ function buildJsonLd(state, params) {
     }))
   };
 
+  // The process no longer has its own visual section — it's one line
+  // under the pricing heading (sections/pricing-tiers.js) — but stays in
+  // the machine-readable layer here.
   const howTo = {
     "@context": "https://schema.org",
     "@type": "HowTo",
     "name": "How your home gets done with Anvaya",
-    "step": APPROVED_CONTENT.howItWorks.map(s => ({
+    "step": APPROVED_CONTENT.processFlow.map(step => ({
       "@type": "HowToStep",
-      "name": s.title,
-      "text": s.text
+      "name": step
     }))
   };
 

@@ -2,10 +2,9 @@
 // each section file actually renders on its outermost <section>.
 const CONTENT_NAV = {
   nav: [
-    { label: "Spaces",       href: "#gallery" },
-    { label: "How it works", href: "#how-it-works" },
-    { label: "Pricing",      href: "#pricing-tiers" },
-    { label: "Stories",      href: "#reviews" },
-    { label: "FAQs",         href: "#faq" }
+    { label: "Spaces",  href: "#gallery" },
+    { label: "Pricing", href: "#pricing-tiers" },
+    { label: "Stories", href: "#reviews" },
+    { label: "FAQs",    href: "#faq" }
   ]
 };

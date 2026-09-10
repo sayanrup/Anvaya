@@ -68,6 +68,26 @@ plain `<link>`, specifically so a `speed=slow` visitor never fires that
 request at all (see "Speed handling" below) rather than merely not
 waiting on it.
 
+## Design direction (v6): city strip repositioned, How it works folded in
+
+- **City strip moved** from the very top of the page to directly above
+  "Indicative pricing" (`core/compose.js` `renderSecondary()`) — the
+  section file itself (`sections/city-strip.js`) is unchanged, only
+  where its output gets inserted.
+- **"How it works" removed as its own section.** `content/how-it-works.js`
+  and `sections/how-it-works.js` are gone; the four-step process is
+  folded into one line directly under "Know the number before you
+  commit": *Customize your requirement → Get instant quotes → Talk with
+  our designers → Lock the price → We deliver within 45 days*
+  (`content/pricing.js` `processFlow`, rendered by
+  `sections/pricing-tiers.js`). It still feeds a `HowTo` in the JSON-LD
+  (`core/jsonld.js`) — removing the visual section didn't remove it from
+  the machine-readable layer, just its dedicated on-page real estate.
+  The original price disclaimer ("illustrative starting range... not a
+  quote") is kept too, as a smaller caption below the tier cards, so
+  replacing that paragraph with the process line doesn't drop that
+  disclosure from the page.
+
 ## Design direction (v5): gallery revert + city strip + layout feedback
 
 A quick round after v4 shipped:
@@ -294,14 +314,13 @@ just organised into files that are easy to find and edit individually).
 | `docs/AI-PM-Writeup.md` | The graded write-up for this exercise. |
 | **`content/`** | | |
 | `content/brand.js` | Who Anvaya is (name, legal name, URL, description). |
-| `content/nav.js` | Header quick-jump links (Spaces / How it works / Pricing / Stories / FAQs). |
+| `content/nav.js` | Header quick-jump links (Spaces / Pricing / Stories / FAQs). |
 | `content/city-strip.js` | The persistent "your city" strip copy (detected vs. default template + change-city label). |
 | `content/ctas.js` | Every button label on the site — one primary proposition, reused, plus a shorter `headerCta` variant for the compact header pill. |
 | `content/hero.js` | Default/organic first-screen copy + hero photo. |
 | `content/pricing.js` | **The only place price numbers are typed** — 1BHK/2BHK/3BHK/Villa tiers (Villa open-ended), feature bullets, + the shared disclaimer. |
 | `content/gallery.js` | Gallery categories + individual project cards, each optionally carrying multiple `images` for its own carousel. |
 | `content/customize.js` | "Customize as per your need" copy — its CTA re-enters the intent-capture flow. |
-| `content/how-it-works.js` | The four-step process. |
 | `content/commitments.js` | "What Anvaya commits to" (used by the compare lead and the trust-bar chips). |
 | `content/serviceability.js` | The 40-city list, the city-alias map, and the yes/no templates. |
 | `content/question-capture.js` | The "what brought you here" screen (assistant/unknown visitors). |
@@ -328,7 +347,6 @@ just organised into files that are easy to find and edit individually).
 | `sections/gallery.js` | "Every room, measured for your walls" — category-pill filter over a horizontally-scrolling row of project cards, each with its own infinite-loop carousel when it has multiple photos. |
 | `sections/customize.js` | The "Customize as per your need" bridge into the capture flow — shown right after pricing. |
 | `sections/pricing-tiers.js` | The 1BHK/2BHK/3BHK/Villa feature-card pricing table (horizontally scrollable), with the 3BHK marked "Most chosen." |
-| `sections/how-it-works.js` | The dark, compact (2×2 grid) four-step process section. |
 | `sections/key-facts.js` | The collapsed "In detail" quotable facts. |
 | `sections/reviews.js` | Review cards — avatar, stars, package taken, styled after a Google-reviews look (not a real Google data source). |
 | `sections/virtual-tour.js` | The demoted drag-to-pan tour, now through real photos. |

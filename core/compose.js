@@ -46,7 +46,7 @@ function renderSecondary(faqContext) {
   let out = renderTrustBar();
   out += renderGallery();
   out += renderVirtualTour();   // demoted "prefer to look around first?" fallback, right after real photos
-  out += renderHowItWorks();
+  out += renderCityStrip();     // moved here, directly before pricing
   out += renderPricingTiers();
   out += renderCustomize();     // "ask AI" bridge into the intent-capture flow, right after price
   out += renderReviews();
@@ -91,7 +91,7 @@ function composePage() {
       leadHtml = renderHero(); faqContext = 'generic'; activeState = 'hero'; break;
   }
 
-  app.innerHTML = renderCityStrip() + leadHtml + renderSecondary(faqContext);
+  app.innerHTML = leadHtml + renderSecondary(faqContext);
   updateJsonLd(activeState, params);
   applySpeedMode(params.speed);
   if (params.debug) renderDebug(params, rule, reason);

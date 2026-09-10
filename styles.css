@@ -251,19 +251,13 @@ section.hero-photo{padding:0;max-width:none;}
 /* ===================== customize / ask AI ===================== */
 .customize{background:var(--bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 
-/* ===================== how it works (dark, compact) ===================== */
-.how-it-works{background:var(--ink);color:var(--ink-foreground);padding-top:1.75rem;padding-bottom:1.75rem;}
-.how-it-works h2{color:var(--ink-foreground);font-size:1.3rem;}
-.steps{
-  list-style:none;margin:1.1rem 0 0;padding:0;
-  display:grid;grid-template-columns:1fr 1fr;gap:1rem 1.1rem;
-}
-.steps li{border-top:1px solid color-mix(in oklch, var(--ink-foreground) 18%, transparent);padding-top:.6rem;}
-.step-number{font-family:var(--font-display);font-size:1.15rem;color:var(--gold);display:block;}
-.steps strong{font-size:.88rem;display:block;margin-top:.15rem;line-height:1.25;}
-.steps p{font-size:.76rem;color:color-mix(in oklch, var(--ink-foreground) 70%, transparent);margin:.25rem 0 0;line-height:1.35;}
-
 /* ===================== pricing tiers ===================== */
+.tier-flow{
+  font-size:.85rem;font-weight:600;color:var(--accent-dark);
+  margin:0 0 .3rem;line-height:1.6;
+}
+.tier-flow-arrow{color:var(--gold);font-weight:400;}
+.price-disclaimer-note{font-size:.74rem;color:var(--ink-soft);margin-top:.75rem;}
 .tier-cards{
   display:flex;gap:1rem;margin-top:1.25rem;padding:.9rem .1rem 1rem;
   overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;

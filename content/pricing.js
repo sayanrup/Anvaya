@@ -27,5 +27,17 @@ const CONTENT_PRICING = {
       lowText: "₹12L", openEnded: true, low: 1200000, currency: "INR",
       points: ["Designer-led concept", "Premium finishes throughout", "Furniture & decor styling", "Dedicated project lead"] }
   ],
-  priceDisclaimer: "Illustrative starting range for planning only — not a quote. Your exact price depends on city, carpet area, and finish level, and is confirmed for free before you sign anything."
+  priceDisclaimer: "Illustrative starting range for planning only — not a quote. Your exact price depends on city, carpet area, and finish level, and is confirmed for free before you sign anything.",
+  // Replaces the standalone "How it works" section — the process now
+  // shows as one line directly under the pricing heading instead of its
+  // own section further down the page. Also feeds the HowTo JSON-LD
+  // (core/jsonld.js) so the process stays in the machine-readable layer
+  // even without a dedicated visual section for it.
+  processFlow: [
+    "Customize your requirement",
+    "Get instant quotes",
+    "Talk with our designers",
+    "Lock the price",
+    "We deliver within 45 days"
+  ]
 };
