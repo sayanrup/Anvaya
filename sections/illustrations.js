@@ -24,6 +24,8 @@ function roomShapes(categoryId) {
       return `<div class="illus-window"></div><div class="illus-bed"><div class="illus-pillow"></div></div>`;
     case 'wardrobe':
       return `<div class="illus-wardrobe"><span></span><span></span></div>`;
+    case 'dining':
+      return `<div class="illus-window"></div><div class="illus-table"></div><div class="illus-chair illus-chair-l"></div><div class="illus-chair illus-chair-r"></div>`;
     case 'full-home':
       return `<div class="illus-plan"><i></i><i></i><i></i><i></i></div>`;
     case 'living-room':

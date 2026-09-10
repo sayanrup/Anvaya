@@ -78,6 +78,16 @@ header.topbar{
 }
 .site-nav a:hover{color:var(--accent-dark);}
 
+/* ===================== persistent city strip ===================== */
+.city-strip{
+  display:flex;align-items:center;justify-content:space-between;gap:.75rem;
+  background:var(--bg);border-bottom:1px solid var(--border);
+  padding:.55rem 1rem;font-size:.78rem;
+}
+.city-strip-text{color:var(--ink-soft);}
+.city-strip-text strong{color:var(--ink);}
+.city-strip-cta{flex:none;font-weight:700;color:var(--accent-dark);text-decoration:none;white-space:nowrap;}
+
 main#app{padding-bottom:.5rem;}
 section{padding:2.25rem 1rem;max-width:480px;margin:0 auto;}
 section.hero-photo{padding:0;max-width:none;}
@@ -164,13 +174,31 @@ section.hero-photo{padding:0;max-width:none;}
 .trust-label{font-weight:700;font-size:.85rem;margin:0;}
 .trust-sub{font-size:.72rem;color:var(--ink-soft);margin:0;}
 
-/* ===================== gallery ===================== */
-.space-grid{display:grid;gap:1.25rem;margin-top:1.25rem;}
-.space-card{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--card);}
+/* ===================== gallery (pill filter + horizontal scroll) ===================== */
+.category-pills{display:flex;gap:.5rem;overflow-x:auto;padding:1rem 0;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.category-pills::-webkit-scrollbar{display:none;}
+.category-pill{
+  flex:none;font-size:.8rem;font-weight:600;padding:.45rem .85rem;border-radius:999px;
+  border:1px solid var(--border);background:var(--card);color:var(--ink-soft);
+}
+.category-pill.active{background:var(--ink);border-color:var(--ink);color:var(--ink-foreground);}
+.project-row{
+  list-style:none;margin:0;padding:0 0 .25rem;display:flex;gap:1rem;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;
+}
+.project-card{
+  flex:0 0 78%;scroll-snap-align:start;border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;background:var(--card);
+}
 .visual-card{height:200px;position:relative;}
-.space-card-body{padding:1rem 1.1rem 1.2rem;}
-.space-card-body h3{margin-bottom:.3rem;}
-.space-card-body p{font-size:.85rem;color:var(--ink-soft);margin:0;}
+.project-card-body{padding:.9rem 1rem 1.1rem;}
+.project-card-body strong{display:block;font-family:var(--font-display);font-size:1.05rem;}
+.project-meta{display:block;font-size:.78rem;color:var(--ink-soft);margin:.2rem 0 .55rem;}
+.project-link{font-size:.82rem;font-weight:700;color:var(--accent-dark);text-decoration:none;}
+.illus-table{position:absolute;left:20%;bottom:18%;width:60%;height:8%;border-radius:2px;background:var(--ink-soft);}
+.illus-chair{position:absolute;bottom:14%;width:12%;height:10%;border-radius:2px;background:var(--accent);}
+.illus-chair-l{left:14%;}
+.illus-chair-r{right:14%;}
 
 /* Per-card infinite-swipe image carousel — see sections/gallery.js. */
 .space-carousel{overflow:hidden;}
@@ -200,6 +228,7 @@ section.hero-photo{padding:0;max-width:none;}
   background:linear-gradient(to bottom, var(--card) 0%, var(--card) 62%, var(--border) 62%, var(--border) 100%);
   border-right:1px solid var(--border);
 }
+.room-segment img{width:100%;height:100%;object-fit:cover;display:block;}
 .illus-window{position:absolute;top:14%;left:8%;width:22%;height:24%;border-radius:2px;background:linear-gradient(180deg,#bcdcf2,#e8f4fb);border:4px solid var(--card);box-shadow:0 0 0 1px rgba(0,0,0,.08);}
 .illus-sofa{position:absolute;left:38%;bottom:16%;width:44%;height:17%;border-radius:4px;background:var(--accent);}
 .illus-plant{position:absolute;right:9%;bottom:14%;width:6%;height:12%;border-radius:2px;background:var(--ink-soft);}
@@ -235,8 +264,14 @@ section.hero-photo{padding:0;max-width:none;}
 .steps p{font-size:.76rem;color:color-mix(in oklch, var(--ink-foreground) 70%, transparent);margin:.25rem 0 0;line-height:1.35;}
 
 /* ===================== pricing tiers ===================== */
-.tier-cards{display:grid;gap:1rem;margin-top:1.25rem;}
-.tier-card{position:relative;border:1px solid var(--border);background:var(--card);border-radius:var(--radius);padding:1.5rem;}
+.tier-cards{
+  display:flex;gap:1rem;margin-top:1.25rem;padding:.9rem .1rem 1rem;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;
+}
+.tier-card{
+  position:relative;border:1px solid var(--border);background:var(--card);border-radius:var(--radius);
+  padding:1.5rem;flex:0 0 82%;scroll-snap-align:start;
+}
 .tier-card.featured{border-color:var(--accent);background:var(--bg);box-shadow:0 8px 24px -12px color-mix(in oklch, var(--accent) 40%, transparent);}
 .tier-badge{
   position:absolute;top:-.6rem;left:1.5rem;background:var(--accent);color:var(--ink-foreground);

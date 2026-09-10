@@ -68,6 +68,49 @@ plain `<link>`, specifically so a `speed=slow` visitor never fires that
 request at all (see "Speed handling" below) rather than merely not
 waiting on it.
 
+## Design direction (v5): gallery revert + city strip + layout feedback
+
+A quick round after v4 shipped:
+
+- **Gallery reverted, carousel kept.** The "What we design" section's
+  brief detour into one big card per room category (v4) is reverted back
+  to the pill-filter + horizontally-scrolling row of individual project
+  cards from before that — that layout tested better. What's kept from
+  v4: each card can still carry multiple photos in its own swipeable
+  carousel (`content/gallery.js` `images[]`, rendered by the same
+  `initGalleryCarousels()` logic, just applied to project cards again
+  instead of category cards). Added a "Dining" category/chip with no
+  photo yet, so it uses the drawn illustration fallback
+  (`sections/illustrations.js`) until one exists.
+- **A persistent city strip** (`content/city-strip.js` /
+  `sections/city-strip.js`), shown at the top of every page state — the
+  IKEA-style "set your location once" pattern from the original B2B
+  reference doc. It only says "We've detected your city: X" when `city`
+  is genuinely present on the URL (the same signal the delivery_check
+  lead already treats as known); with no such signal it says "Showing
+  prices for: Delhi" instead — a plain default, not a claimed detection
+  this static page has no way to actually perform. "Change city →"
+  re-enters the existing city-capture flow (`intent=delivery_check`)
+  rather than building a second one.
+- **Pricing tiers are now horizontally scrollable** too, matching the
+  gallery's card-row pattern, instead of a vertical stack.
+- **The "Customize as per your need" (ask-AI) section moved** to
+  directly after the pricing table, per feedback — the moment someone
+  has just seen a number is also the moment "or tell us exactly what you
+  need instead" lands best.
+- **The 360° tour now drags through real photos** — four images from
+  `content/virtual-tour.js` `panoramaImages` (same photo set as the
+  gallery), one per segment, replacing the earlier CSS-shape room
+  illustration. The drag/wrap mechanic is unchanged; segment count is
+  now read from the DOM rather than a fixed constant, since it follows
+  however many photos are listed. The caption still reads honestly ("a
+  preview, not a live 360° capture of a specific Anvaya home") since
+  these are the same concept-render photos as the gallery, not an actual
+  360° capture of a real installation.
+- **A Villa-tier review** added alongside the existing 3BHK and 2BHK
+  ones, so the review section shows the package spread across tiers, not
+  just two adjacent ones.
+
 ## Design direction (v4): sync + polish pass
 
 A round of feedback on v3 plus a fresh sync with the reference repo
@@ -252,17 +295,18 @@ just organised into files that are easy to find and edit individually).
 | **`content/`** | | |
 | `content/brand.js` | Who Anvaya is (name, legal name, URL, description). |
 | `content/nav.js` | Header quick-jump links (Spaces / How it works / Pricing / Stories / FAQs). |
+| `content/city-strip.js` | The persistent "your city" strip copy (detected vs. default template + change-city label). |
 | `content/ctas.js` | Every button label on the site — one primary proposition, reused, plus a shorter `headerCta` variant for the compact header pill. |
 | `content/hero.js` | Default/organic first-screen copy + hero photo. |
 | `content/pricing.js` | **The only place price numbers are typed** — 1BHK/2BHK/3BHK/Villa tiers (Villa open-ended), feature bullets, + the shared disclaimer. |
-| `content/gallery.js` | Four spaces, each with 3 real photos for the per-card carousel (illustration-backed fallback). |
+| `content/gallery.js` | Gallery categories + individual project cards, each optionally carrying multiple `images` for its own carousel. |
 | `content/customize.js` | "Customize as per your need" copy — its CTA re-enters the intent-capture flow. |
 | `content/how-it-works.js` | The four-step process. |
 | `content/commitments.js` | "What Anvaya commits to" (used by the compare lead and the trust-bar chips). |
 | `content/serviceability.js` | The 40-city list, the city-alias map, and the yes/no templates. |
 | `content/question-capture.js` | The "what brought you here" screen (assistant/unknown visitors). |
 | `content/city-capture.js` | The "which city" screen (delivery_check without a city). |
-| `content/virtual-tour.js` | The demoted 360° tour fallback. |
+| `content/virtual-tour.js` | The demoted 360° tour fallback — now drags through real photos (`panoramaImages`). |
 | `content/consult.js` | The real enquiry-form copy (fields, labels, success/error messages). |
 | `content/generic.js` | Last-resort copy if the hero's own content is somehow missing. |
 | `content/key-facts.js` | Quotable declarative sentences for the machine-readable layer. |
@@ -280,13 +324,14 @@ just organised into files that are easy to find and edit individually).
 | `sections/hero.js` | The default/cost full-bleed photo hero + the last-resort safe fallback. |
 | `sections/lead.js` | The compare / delivery_check / capture / city-capture lead blocks. |
 | `sections/trust-bar.js` | The icon + label + sub-label trust strip under the hero. |
-| `sections/gallery.js` | "Every room, measured for your walls" — four space cards, each with its own infinite-loop image carousel. |
-| `sections/customize.js` | The "Customize as per your need" bridge into the capture flow. |
-| `sections/pricing-tiers.js` | The 1BHK/2BHK/3BHK/Villa feature-card pricing table, with the 3BHK marked "Most chosen." |
+| `sections/city-strip.js` | The persistent city strip, shown at the top of every page state. |
+| `sections/gallery.js` | "Every room, measured for your walls" — category-pill filter over a horizontally-scrolling row of project cards, each with its own infinite-loop carousel when it has multiple photos. |
+| `sections/customize.js` | The "Customize as per your need" bridge into the capture flow — shown right after pricing. |
+| `sections/pricing-tiers.js` | The 1BHK/2BHK/3BHK/Villa feature-card pricing table (horizontally scrollable), with the 3BHK marked "Most chosen." |
 | `sections/how-it-works.js` | The dark, compact (2×2 grid) four-step process section. |
 | `sections/key-facts.js` | The collapsed "In detail" quotable facts. |
 | `sections/reviews.js` | Review cards — avatar, stars, package taken, styled after a Google-reviews look (not a real Google data source). |
-| `sections/virtual-tour.js` | The demoted drag-to-pan tour. |
+| `sections/virtual-tour.js` | The demoted drag-to-pan tour, now through real photos. |
 | `sections/faq.js` | The FAQ accordion. |
 | `sections/consult-form.js` | The real (client-side-only) enquiry form. |
 | `sections/header.js` | Renders the header's nav links and CTA from approved content. |

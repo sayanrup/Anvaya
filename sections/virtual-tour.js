@@ -1,13 +1,12 @@
 /* =====================================================================
    sections/virtual-tour.js — "Try our 360° virtual tour".
    -----------------------------------------------------------------
-   Drag-to-pan panorama built entirely from CSS shapes (window/sofa/
-   plant) repeated across four identical segments — no photo, no image
-   file, no external asset. That's a deliberate choice, not a shortcut:
-   this page never renders a real photograph of an Anvaya interior it
-   doesn't have, the same "never invent" rule the approved-content
-   guardrail applies to numbers. The caption says so explicitly, the
-   same way the price block labels itself "illustrative".
+   Drag-to-pan strip through real concept photography (content/virtual-
+   tour.js `panoramaImages`, same provenance as the gallery), one photo
+   per segment — replacing the earlier CSS-shape illustration per
+   feedback. If `panoramaImages` is ever emptied, this falls back to the
+   drawn illustration (sections/illustrations.js) so the section still
+   renders something rather than an empty strip.
 
    This is structural/experiential content, not a factual claim, so it
    isn't gated by canRender() the way price/timeline/warranty/
@@ -15,19 +14,21 @@
    content.js like everything else on the page.
    ===================================================================== */
 const TOUR_SEGMENT_WIDTH = 280; // must match .room-segment width in styles.css
-const TOUR_SEGMENT_COUNT = 4;
 
 function renderVirtualTour() {
   const vt = APPROVED_CONTENT.virtualTour;
   if (!vt) return '';
-  // Reuses the same room-shape markup as sections/illustrations.js
-  // (the .illus-* classes) rather than a second, parallel set of shapes.
-  const segment = `<div class="room-segment">${roomShapes('living-room')}</div>`;
+  const images = vt.panoramaImages && vt.panoramaImages.length ? vt.panoramaImages : [null, null, null, null];
+  const segments = images.map(src =>
+    `<div class="room-segment">${src
+      ? `<img class="visual-photo" src="${escapeHtml(src)}" alt="" loading="lazy" draggable="false">`
+      : roomShapes('living-room')}</div>`
+  ).join('');
   return `
   <section class="virtual-tour" id="tour" aria-label="360 degree virtual tour">
     <h2>${escapeHtml(vt.heading)}</h2>
     <div class="tour-viewport" id="tour-viewport">
-      <div class="tour-strip" id="tour-strip">${segment.repeat(TOUR_SEGMENT_COUNT)}</div>
+      <div class="tour-strip" id="tour-strip">${segments}</div>
       <span class="tour-hint">${escapeHtml(vt.dragHint)}</span>
     </div>
     <p class="tour-caption">${escapeHtml(vt.caption)}</p>
@@ -40,18 +41,25 @@ function renderVirtualTour() {
    working after composePage() rebuilds #app's innerHTML on every
    query-param change — there's no element to re-bind a listener to
    until the section is actually rendered, and delegation sidesteps that
-   entirely. Because every segment is identical, wrapping the offset
-   modulo one segment's width is seamless in either direction. */
+   entirely. The segment count is read from the DOM each drag rather
+   than a fixed constant, since it now follows however many photos
+   content/virtual-tour.js lists. */
 (function initVirtualTourDrag() {
-  const LOOP_WIDTH = TOUR_SEGMENT_WIDTH * TOUR_SEGMENT_COUNT;
   let dragging = false;
   let startX = 0;
   let startOffset = 0;
   let offset = 0;
 
+  function loopWidth() {
+    const strip = document.getElementById('tour-strip');
+    const count = strip ? strip.children.length : 4;
+    return TOUR_SEGMENT_WIDTH * count;
+  }
+
   function wrap(x) {
-    let m = x % LOOP_WIDTH;
-    if (m > 0) m -= LOOP_WIDTH;
+    const width = loopWidth();
+    let m = x % width;
+    if (m > 0) m -= width;
     return m;
   }
 

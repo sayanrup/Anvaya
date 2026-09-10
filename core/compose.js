@@ -45,10 +45,10 @@ function determineRule(p) {
 function renderSecondary(faqContext) {
   let out = renderTrustBar();
   out += renderGallery();
-  out += renderCustomize();     // bridge into the existing intent-capture flow
   out += renderVirtualTour();   // demoted "prefer to look around first?" fallback, right after real photos
   out += renderHowItWorks();
   out += renderPricingTiers();
+  out += renderCustomize();     // "ask AI" bridge into the intent-capture flow, right after price
   out += renderReviews();
   out += renderKeyFacts();      // collapsed "In detail" — machine-readable layer, not a human focal point
   out += renderFaq(faqContext);
@@ -91,7 +91,7 @@ function composePage() {
       leadHtml = renderHero(); faqContext = 'generic'; activeState = 'hero'; break;
   }
 
-  app.innerHTML = leadHtml + renderSecondary(faqContext);
+  app.innerHTML = renderCityStrip() + leadHtml + renderSecondary(faqContext);
   updateJsonLd(activeState, params);
   applySpeedMode(params.speed);
   if (params.debug) renderDebug(params, rule, reason);

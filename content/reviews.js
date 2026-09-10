@@ -9,7 +9,8 @@
 // backed by anything real for this demo brand.
 const CONTENT_REVIEWS = {
   reviews: [
-    { claimType: "review", name: "Priya S.", tier: "3bhk", city: "Bengaluru", rating: 5, text: "Our 3BHK was delivered on the date they committed to, and the final bill matched the signed quote exactly." },
-    { claimType: "review", name: "Arjun N.", tier: "2bhk", city: "Noida",     rating: 5, text: "The Cost Calculator gave us a firm number before we signed anything — no surprises during the project." }
+    { claimType: "review", name: "Priya S.",  tier: "3bhk",  city: "Bengaluru", rating: 5, text: "Our 3BHK was delivered on the date they committed to, and the final bill matched the signed quote exactly." },
+    { claimType: "review", name: "Arjun N.",  tier: "2bhk",  city: "Noida",     rating: 5, text: "The Cost Calculator gave us a firm number before we signed anything — no surprises during the project." },
+    { claimType: "review", name: "Kavita R.", tier: "villa", city: "Gurugram",  rating: 5, text: "Designer-led from day one. Furniture and decor styling were part of the package, not an afterthought we had to source ourselves." }
   ]
 };
