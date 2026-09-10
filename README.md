@@ -9,6 +9,11 @@ The graded write-up for this exercise — how personalisation and A/B
 testing interact, the single leading metric, the guardrails, and next
 steps — is at **[`docs/AI-PM-Writeup.md`](docs/AI-PM-Writeup.md)**.
 
+A cross-check of this page against home-interiors / high-consideration-
+purchase UX best practice — what matches the category, what's a
+deliberate departure, and what's a real gap — is at
+**[`docs/UX-Benchmark.md`](docs/UX-Benchmark.md)**.
+
 ## Run it
 
 Serve the repo root with any static file server or GitHub Pages — e.g.
