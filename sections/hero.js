@@ -14,14 +14,13 @@ function renderHero() {
   const hero = APPROVED_CONTENT.hero;
   if (!hero) return renderGenericSafe();
 
-  // "Starting from just ₹3.5L" — reads the 2BHK tier's low end directly
-  // rather than a number typed here, so it can't disagree with the 2BHK
+  // "Starting from just ₹2.5L" — reads the 1BHK tier's low end directly
+  // rather than a number typed here, so it can't disagree with the 1BHK
   // row in the pricing table below (see content/hero.js).
-  const tier = getPriceTier('2bhk');
+  const tier = getPriceTier('1bhk');
   const priceBlockHtml = canRender(tier) ? `
     <div class="price-block" data-claim-type="price">
       <span class="price-range">${escapeHtml(hero.startingPrefix)} ${escapeHtml(tier.lowText)}</span>
-      <span class="price-disclaimer">${escapeHtml(hero.disclaimer)}</span>
     </div>` : '';
 
   return `

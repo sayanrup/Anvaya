@@ -68,6 +68,18 @@ plain `<link>`, specifically so a `speed=slow` visitor never fires that
 request at all (see "Speed handling" below) rather than merely not
 waiting on it.
 
+## Design direction (v7): hero headline price lowered to ₹2.5L
+
+The hero's "Starting from just..." figure now reads the **1BHK** tier's
+low end (`getPriceTier('1bhk')`, ₹2.5L) instead of the 2BHK tier's
+(₹3.5L) — genuinely the lowest entry point across all tiers, and a
+stronger headline number for that reason. Updated everywhere the old
+figure was echoed in prose (`content/faq.js`, `content/key-facts.js`,
+the static baseline JSON-LD in `index.html`) so nothing on the page still
+quotes the old ₹3.5L "starting from" figure — the same one-fact-one-place
+discipline `getPriceTier()` already enforces at the code level, applied
+here to the hand-written sentences that mention it too.
+
 ## Design direction (v6): city strip repositioned, How it works folded in
 
 - **City strip moved** from the very top of the page to directly above
@@ -208,7 +220,7 @@ changed:
 3. **Trust moved up, key facts moved down** — a compact trust bar (cities
    count + each commitment, as short chips) sits directly under the hero;
    the fuller quotable "Key facts" sentences (for the machine-readable
-   layer) still exist, just collapsed behind a small "In detail"
+   layer) still exist, just collapsed behind a small "Know us in detail"
    disclosure lower on the page rather than dominating the first screen.
 4. **One specific CTA** — "Get my exact estimate" (primary) / "Talk to a
    designer" (secondary), replacing the generic "Book a free design
@@ -347,7 +359,7 @@ just organised into files that are easy to find and edit individually).
 | `sections/gallery.js` | "Every room, measured for your walls" — category-pill filter over a horizontally-scrolling row of project cards, each with its own infinite-loop carousel when it has multiple photos. |
 | `sections/customize.js` | The "Customize as per your need" bridge into the capture flow — shown right after pricing. |
 | `sections/pricing-tiers.js` | The 1BHK/2BHK/3BHK/Villa feature-card pricing table (horizontally scrollable), with the 3BHK marked "Most chosen." |
-| `sections/key-facts.js` | The collapsed "In detail" quotable facts. |
+| `sections/key-facts.js` | The collapsed "Know us in detail" quotable facts. |
 | `sections/reviews.js` | Review cards — avatar, stars, package taken, styled after a Google-reviews look (not a real Google data source). |
 | `sections/virtual-tour.js` | The demoted drag-to-pan tour, now through real photos. |
 | `sections/faq.js` | The FAQ accordion. |
@@ -456,7 +468,7 @@ known value, the page never invents a number — it falls back to
 - **Semantic markup** — every factual claim in the DOM carries
   `data-claim-type="price|timeline|warranty|serviceability|review"`.
 - **Key facts** — five standalone, quotable declarative sentences,
-  present in the DOM (collapsed behind "In detail," per the redesign) on
+  present in the DOM (collapsed behind "Know us in detail," per the redesign) on
   every visitor state.
 
 **Honest limitation:** personalised JSON-LD only exists once client-side

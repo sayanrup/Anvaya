@@ -50,7 +50,7 @@ function renderSecondary(faqContext) {
   out += renderPricingTiers();
   out += renderCustomize();     // "ask AI" bridge into the intent-capture flow, right after price
   out += renderReviews();
-  out += renderKeyFacts();      // collapsed "In detail" — machine-readable layer, not a human focal point
+  out += renderKeyFacts();      // collapsed "Know us in detail" — machine-readable layer, not a human focal point
   out += renderFaq(faqContext);
   out += renderConsultForm();
   return out;

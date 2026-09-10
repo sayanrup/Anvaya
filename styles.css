@@ -130,7 +130,6 @@ section.hero-photo{padding:0;max-width:none;}
   border-radius:var(--radius);padding:.75rem .9rem;margin:.75rem 0;display:block;
 }
 .price-range{font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:var(--ink-foreground);display:block;}
-.price-disclaimer{font-size:.74rem;color:color-mix(in oklch, var(--ink-foreground) 75%, transparent);}
 
 /* Non-photo leads (compare/delivery/capture/city-capture) — plain cards */
 .lead{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);border-left:4px solid var(--accent);margin:1rem;padding:1.5rem 1.25rem;}

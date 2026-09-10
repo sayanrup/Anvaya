@@ -5,9 +5,9 @@
 // changing here. Figures synced with the reference project's own
 // updated price ballparks (1BHK/2BHK/3BHK/Villa) — see README.
 //
-// The hero's "Starting from just ₹3.5L" headline reads tier "2bhk"'s
+// The hero's "Starting from just ₹2.5L" headline reads tier "1bhk"'s
 // lowText directly (see sections/hero.js) rather than a separately typed
-// number, specifically so it can never drift out of sync with the 2BHK
+// number, specifically so it can never drift out of sync with the 1BHK
 // row in the pricing table below it.
 const CONTENT_PRICING = {
   priceTiers: [
