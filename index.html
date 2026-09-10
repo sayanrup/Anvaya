@@ -11,12 +11,12 @@
 <!--
   STATIC BASELINE JSON-LD
   ========================
-  Hand-authored snapshot of the "generic / safe" visitor state, kept in
-  sync with content.js by hand. It exists so a visitor (or crawler) with
-  JavaScript disabled still gets correct, approved structured data — this
-  is a static file with no server, so a per-visitor JSON-LD can only be
-  produced client-side. Once JS runs, core/jsonld.js rewrites this same
-  <script> tag to match the active composition state.
+  Hand-authored snapshot of the default "hero" visitor state, kept in
+  sync with content/*.js by hand. It exists so a visitor (or crawler)
+  with JavaScript disabled still gets correct, approved structured data —
+  this is a static file with no server, so a per-visitor JSON-LD can only
+  be produced client-side. Once JS runs, core/jsonld.js rewrites this
+  same <script> tag to match the active composition state.
 -->
 <script type="application/ld+json" id="ld-json">
 [
@@ -27,7 +27,11 @@
     "legalName": "Anvaya Interiors Pvt Ltd",
     "url": "https://sayanrup.github.io/Anvaya/",
     "description": "Anvaya designs, manufactures and installs full home interiors across India, with fixed pricing confirmed before you commit, on-time delivery, and a written warranty on all work.",
-    "areaServed": ["Bengaluru","Mumbai","Delhi","Noida","Gurugram","Ghaziabad","Faridabad","Pune","Hyderabad","Chennai","Kolkata","Ahmedabad","Surat","Vadodara","Rajkot","Jaipur","Lucknow","Kanpur","Chandigarh","Mohali","Ludhiana","Amritsar","Nagpur","Nashik","Indore","Bhopal","Coimbatore","Kochi","Thiruvananthapuram","Mysuru","Mangaluru","Visakhapatnam","Vijayawada","Guntur","Thane","Navi Mumbai","Dehradun","Bhubaneswar","Guwahati","Patna"]
+    "areaServed": ["Bengaluru","Mumbai","Delhi","Noida","Gurugram","Ghaziabad","Faridabad","Pune","Hyderabad","Chennai","Kolkata","Ahmedabad","Surat","Vadodara","Rajkot","Jaipur","Lucknow","Kanpur","Chandigarh","Mohali","Ludhiana","Amritsar","Nagpur","Nashik","Indore","Bhopal","Coimbatore","Kochi","Thiruvananthapuram","Mysuru","Mangaluru","Visakhapatnam","Vijayawada","Guntur","Thane","Navi Mumbai","Dehradun","Bhubaneswar","Guwahati","Patna"],
+    "review": [
+      { "@type": "Review", "reviewRating": { "@type": "Rating", "ratingValue": 5, "bestRating": 5 }, "author": { "@type": "Person", "name": "Priya S." }, "reviewBody": "Our 3BHK was delivered on the date they committed to, and the final bill matched the signed quote exactly." },
+      { "@type": "Review", "reviewRating": { "@type": "Rating", "ratingValue": 5, "bestRating": 5 }, "author": { "@type": "Person", "name": "Arjun N." }, "reviewBody": "The Cost Calculator gave us a firm number before we signed anything — no surprises during the project." }
+    ]
   },
   {
     "@context": "https://schema.org",
@@ -35,17 +39,11 @@
     "name": "Full home interior design & execution",
     "provider": { "@type": "Organization", "name": "Anvaya" },
     "areaServed": ["Bengaluru","Mumbai","Delhi","Noida","Patna"],
-    "offers": {
-      "@type": "Offer",
-      "priceCurrency": "INR",
-      "priceSpecification": {
-        "@type": "PriceSpecification",
-        "minPrice": 750000,
-        "maxPrice": 1350000,
-        "priceCurrency": "INR"
-      },
-      "description": "Illustrative starting range for planning only — not a quote. Your exact price depends on city, carpet area, and finish level, and is confirmed for free before you sign anything."
-    }
+    "offers": [
+      { "@type": "Offer", "name": "2BHK full-home interiors", "priceCurrency": "INR", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 550000, "maxPrice": 950000, "priceCurrency": "INR" }, "description": "Illustrative starting range for planning only — not a quote. Your exact price depends on city, carpet area, and finish level, and is confirmed for free before you sign anything." },
+      { "@type": "Offer", "name": "3BHK full-home interiors", "priceCurrency": "INR", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 750000, "maxPrice": 1350000, "priceCurrency": "INR" }, "description": "Illustrative starting range for planning only — not a quote. Your exact price depends on city, carpet area, and finish level, and is confirmed for free before you sign anything." },
+      { "@type": "Offer", "name": "4BHK full-home interiors", "priceCurrency": "INR", "priceSpecification": { "@type": "PriceSpecification", "minPrice": 1000000, "maxPrice": 1700000, "priceCurrency": "INR" }, "description": "Illustrative starting range for planning only — not a quote. Your exact price depends on city, carpet area, and finish level, and is confirmed for free before you sign anything." }
+    ]
   },
   {
     "@context": "https://schema.org",
@@ -56,6 +54,17 @@
       { "@type": "Question", "name": "Does Anvaya guarantee delivery dates?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Anvaya commits to an on-time delivery date in writing at the start of every project." } },
       { "@type": "Question", "name": "Is there a warranty on Anvaya interiors?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every Anvaya project is backed by a written warranty covering workmanship and materials after handover." } },
       { "@type": "Question", "name": "How is Anvaya different from other interior providers?", "acceptedAnswer": { "@type": "Answer", "text": "Anvaya commits to fixed pricing in writing, on-time delivery, and a written warranty, with your exact cost confirmed free before you commit — rather than making comparative claims about any named competitor." } }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How your home gets done with Anvaya",
+    "step": [
+      { "@type": "HowToStep", "name": "Tell us about your home", "text": "Share floor plan, requirements and style." },
+      { "@type": "HowToStep", "name": "Design & estimate", "text": "See your design and itemised cost." },
+      { "@type": "HowToStep", "name": "Freeze the price", "text": "Know exactly what you're paying before work begins." },
+      { "@type": "HowToStep", "name": "We build it", "text": "Execution tracked until handover." }
     ]
   }
 ]
@@ -69,7 +78,7 @@
       <img src="assets/logo.svg" width="32" height="32" alt="">
       <span class="logo">Anvaya</span>
     </a>
-    <a class="tiny-cta" href="#consultation">Book free consult</a>
+    <a class="tiny-cta" id="header-cta" href="#estimate">Get estimate</a>
   </div>
   <nav class="site-nav wrap" aria-label="Page sections" id="site-nav"><!-- filled by sections/header.js --></nav>
 </header>
@@ -92,26 +101,55 @@
 </noscript>
 
 <footer>
-  <p id="consultation">Anvaya · Full home interiors across India · This is a self-composing demo page.</p>
+  <p id="estimate">Anvaya · Full home interiors across India · This is a self-composing demo page.</p>
   <div id="debug-line" hidden></div>
 </footer>
 
 <!--
   Plain, non-module scripts sharing one global scope, loaded in
   dependency order — no bundler, no build step, so GitHub Pages can serve
-  this directory as-is. Each file below is one section (or one layer) of
-  the page: change a section by editing its one file.
+  this directory as-is. content/*.js fragments must load first (they
+  define the pieces content/index.js merges into APPROVED_CONTENT);
+  core/compose.js must load last (it calls functions every other file
+  defines).
 -->
-<script src="content.js"></script>
+<script src="content/brand.js"></script>
+<script src="content/nav.js"></script>
+<script src="content/ctas.js"></script>
+<script src="content/hero.js"></script>
+<script src="content/pricing.js"></script>
+<script src="content/gallery.js"></script>
+<script src="content/how-it-works.js"></script>
+<script src="content/commitments.js"></script>
+<script src="content/serviceability.js"></script>
+<script src="content/question-capture.js"></script>
+<script src="content/city-capture.js"></script>
+<script src="content/virtual-tour.js"></script>
+<script src="content/generic.js"></script>
+<script src="content/key-facts.js"></script>
+<script src="content/faq.js"></script>
+<script src="content/reviews.js"></script>
+<script src="content/index.js"></script>
+
 <script src="core/guardrail.js"></script>
 <script src="core/helpers.js"></script>
+
+<script src="sections/illustrations.js"></script>
+<script src="sections/hero.js"></script>
 <script src="sections/lead.js"></script>
-<script src="sections/key-facts.js"></script>
-<script src="sections/virtual-tour.js"></script>
+<script src="sections/trust-bar.js"></script>
+<script src="sections/gallery.js"></script>
+<script src="sections/pricing-tiers.js"></script>
+<script src="sections/how-it-works.js"></script>
 <script src="sections/commitments.js"></script>
-<script src="sections/faq.js"></script>
+<script src="sections/key-facts.js"></script>
 <script src="sections/reviews.js"></script>
+<script src="sections/virtual-tour.js"></script>
+<script src="sections/faq.js"></script>
+<script src="sections/final-cta.js"></script>
 <script src="sections/header.js"></script>
+<script src="sections/engagement-signals.js"></script>
+
 <script src="core/jsonld.js"></script>
 <script src="core/compose.js"></script>
 </body>

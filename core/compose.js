@@ -4,11 +4,9 @@
    This is the only place that decides WHICH approved block leads. It
    never touches copy directly — it picks a rule name, and the render
    functions in sections/*.js turn that rule into approved-content-only
-   HTML. Must load after content.js, core/guardrail.js, core/helpers.js,
-   core/jsonld.js, and every file in sections/.
+   HTML. Must load after content/index.js, core/guardrail.js,
+   core/helpers.js, core/jsonld.js, and every file in sections/.
    ===================================================================== */
-const KNOWN_INTENTS = ['3bhk_cost', 'vs_competitor', 'delivery_check', 'unknown'];
-
 function determineRule(p) {
   // Rule 1 — assistant-referred visitors arrive pre-informed: skip the
   // pitch entirely and go straight to intent capture, regardless of
@@ -16,32 +14,45 @@ function determineRule(p) {
   if (p.source === 'assistant') {
     return { rule: 'capture', reason: 'source=assistant → skip pitch, capture intent' };
   }
-  // Rule 2 — no usable intent: also capture.
-  if (!p.intent || p.intent === 'unknown' || !KNOWN_INTENTS.includes(p.intent)) {
-    const why = !p.intent ? 'intent missing'
-      : p.intent === 'unknown' ? 'intent=unknown'
-      : `intent unrecognised ("${p.intent}")`;
-    return { rule: 'capture', reason: `${why} → capture (safe default)` };
+  // Rule 2 — intent explicitly unknown: also capture.
+  //
+  // A MISSING intent is deliberately handled differently (rule 6, below):
+  // most real organic/search/direct traffic never carries an intent
+  // param at all, and dropping that visitor onto "What brought you here
+  // today?" instead of answering their likely question directly is an
+  // unnecessary extra tap — the capture screen is for visitors who are
+  // genuinely ambiguous, not merely untagged.
+  if (p.intent === 'unknown') {
+    return { rule: 'capture', reason: 'intent=unknown → capture' };
   }
-  // Rule 3 — delivery_check needs a city to answer anything. Missing it
-  // is a required-parameter gap, so this degrades to the safe generic
-  // block rather than guessing or asking again inside the capture flow.
+  // Rule 3 — delivery_check needs a city to answer anything. The visitor
+  // already told us their intent, so ask the one missing thing (which
+  // city?) rather than dropping them onto the generic hero, which would
+  // silently ignore what they asked for.
   if (p.intent === 'delivery_check') {
-    if (!p.city) return { rule: 'generic_safe', reason: 'delivery_check without city → required param missing, degrade to safe generic' };
+    if (!p.city) return { rule: 'delivery_check_needs_city', reason: 'delivery_check without city → ask which city, not the generic hero' };
     return { rule: 'delivery_check', reason: 'intent=delivery_check & city present' };
   }
-  if (p.intent === '3bhk_cost')     return { rule: 'cost',    reason: 'intent=3bhk_cost' };
   if (p.intent === 'vs_competitor') return { rule: 'compare', reason: 'intent=vs_competitor' };
-  // Unreachable given KNOWN_INTENTS above, kept as a last-resort guardrail.
-  return { rule: 'generic_safe', reason: 'fallthrough → safe generic' };
+  if (p.intent === '3bhk_cost')     return { rule: 'cost',    reason: 'intent=3bhk_cost' };
+  // Rule 6 — missing or unrecognised intent: answer first with the
+  // default hero (price + trust + one CTA) instead of asking a
+  // clarifying question.
+  const why = !p.intent ? 'intent missing' : `intent unrecognised ("${p.intent}")`;
+  return { rule: 'hero', reason: `${why} → default hero (answer first)` };
 }
 
 function renderSecondary(context) {
-  let out = renderKeyFacts();
-  out += renderVirtualTour();
+  let out = renderTrustBar();
+  out += renderGallery();
+  out += renderPricingTiers();
+  out += renderHowItWorks();
   if (context !== 'compare') out += renderCommitmentsStrip(); // avoid duplicating the compare lead
-  out += renderFaq(context);
+  out += renderKeyFacts();
   out += renderReviews();
+  out += renderVirtualTour();
+  out += renderFaq(context);
+  out += renderFinalCta();
   return out;
 }
 
@@ -66,22 +77,28 @@ function composePage() {
   let leadHtml, faqContext, activeState;
   switch (rule) {
     case 'cost':
-      leadHtml = renderCostLead(); faqContext = 'cost'; activeState = 'cost'; break;
+      leadHtml = renderHero(); faqContext = 'cost'; activeState = 'cost'; break;
     case 'compare':
       leadHtml = renderCompareLead(); faqContext = 'compare'; activeState = 'compare'; break;
     case 'delivery_check':
       leadHtml = renderDeliveryLead(params); faqContext = 'delivery'; activeState = 'delivery_check'; break;
+    case 'delivery_check_needs_city':
+      leadHtml = renderCityCapture(); faqContext = 'delivery'; activeState = 'delivery_check_needs_city'; break;
     case 'capture':
       leadHtml = renderCapture(); faqContext = 'capture'; activeState = 'capture'; break;
-    case 'generic_safe':
+    case 'hero':
     default:
-      leadHtml = renderGenericSafe(); faqContext = 'generic'; activeState = 'generic_safe'; break;
+      leadHtml = renderHero(); faqContext = 'generic'; activeState = 'hero'; break;
   }
 
   app.innerHTML = leadHtml + renderSecondary(faqContext);
   updateJsonLd(activeState, params);
   applySpeedMode(params.speed);
   if (params.debug) renderDebug(params, rule, reason);
+
+  // Lets sections/engagement-signals.js know the active rule and that
+  // #pricing-tiers now exists in the DOM — see that file for why.
+  document.dispatchEvent(new CustomEvent('anvaya:composed', { detail: { rule, activeState } }));
 }
 
 document.addEventListener('DOMContentLoaded', composePage);

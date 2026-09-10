@@ -19,7 +19,7 @@ function buildJsonLd(state, params) {
     "areaServed": APPROVED_CONTENT.cities
   };
 
-  const price = APPROVED_CONTENT.price3bhk;
+  const tiers = APPROVED_CONTENT.priceTiers.filter(canRender);
   const service = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -27,21 +27,22 @@ function buildJsonLd(state, params) {
     "provider": { "@type": "Organization", "name": b.name },
     "areaServed": APPROVED_CONTENT.cities
   };
-  if (canRender(price)) {
-    service.offers = {
+  if (tiers.length) {
+    service.offers = tiers.map(t => ({
       "@type": "Offer",
-      "priceCurrency": price.currency,
+      "name": `${t.label} full-home interiors`,
+      "priceCurrency": t.currency,
       "priceSpecification": {
         "@type": "PriceSpecification",
-        "minPrice": price.low,
-        "maxPrice": price.high,
-        "priceCurrency": price.currency
+        "minPrice": t.low,
+        "maxPrice": t.high,
+        "priceCurrency": t.currency
       },
-      "description": price.disclaimer
-    };
+      "description": APPROVED_CONTENT.priceDisclaimer
+    }));
   }
   const svc = APPROVED_CONTENT.serviceability;
-  if (state === 'delivery_check' && params && params.city && canRender(svc)) {
+  if ((state === 'delivery_check' || state === 'delivery_check_needs_city') && params && params.city && canRender(svc)) {
     const result = checkServiceability(params.city);
     const template = result.isServiceable ? svc.yesTemplate : svc.noTemplate;
     service.additionalProperty = {
@@ -61,7 +62,28 @@ function buildJsonLd(state, params) {
     }))
   };
 
-  return [organization, service, faqPage];
+  const howTo = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How your home gets done with Anvaya",
+    "step": APPROVED_CONTENT.howItWorks.map(s => ({
+      "@type": "HowToStep",
+      "name": s.title,
+      "text": s.text
+    }))
+  };
+
+  // Individual customer reviews, only the approved ones. No
+  // AggregateRating: there is no approved aggregate figure to back one.
+  const reviews = APPROVED_CONTENT.reviews.filter(canRender);
+  organization.review = reviews.map(r => ({
+    "@type": "Review",
+    "reviewRating": { "@type": "Rating", "ratingValue": r.rating, "bestRating": 5 },
+    "author": { "@type": "Person", "name": r.name },
+    "reviewBody": r.text
+  }));
+
+  return [organization, service, faqPage, howTo];
 }
 
 function updateJsonLd(state, params) {

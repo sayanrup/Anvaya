@@ -1,17 +1,23 @@
 /* =====================================================================
-   sections/header.js — the quick-jump nav row inside the sticky header.
+   sections/header.js — the header's quick-jump nav and CTA button.
    -----------------------------------------------------------------
-   The rest of the header (logo, wordmark, CTA) is static markup in
-   index.html since it never varies by visitor — only this nav strip is
-   generated, from APPROVED_CONTENT.nav, so its links always match the
-   `id` attributes the other section files actually render. Runs
-   immediately (not on DOMContentLoaded) since the script tag is placed
-   after #site-nav in the document, so the element already exists.
+   The header's logo/wordmark is static markup in index.html since it
+   never varies; the nav links and the CTA label/href are rendered here
+   from APPROVED_CONTENT so they can't drift out of sync with the rest of
+   the page's copy. Runs immediately (not on DOMContentLoaded) since the
+   script tag is placed after these elements in the document, so they
+   already exist.
    ===================================================================== */
-(function renderHeaderNav() {
+(function renderHeaderChrome() {
   const nav = document.getElementById('site-nav');
-  if (!nav) return;
-  nav.innerHTML = APPROVED_CONTENT.nav
-    .map(item => `<a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a>`)
-    .join('');
+  if (nav) {
+    nav.innerHTML = APPROVED_CONTENT.nav
+      .map(item => `<a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a>`)
+      .join('');
+  }
+  const cta = document.getElementById('header-cta');
+  if (cta) {
+    cta.href = APPROVED_CONTENT.ctas.primary.href;
+    cta.textContent = APPROVED_CONTENT.ctas.primary.label;
+  }
 })();

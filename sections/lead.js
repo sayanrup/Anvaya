@@ -1,39 +1,22 @@
 /* =====================================================================
-   sections/lead.js — the personalised top-of-page block.
-   -----------------------------------------------------------------
-   Five mutually-exclusive renderers, one per composition rule from
-   core/compose.js. Grouped in one file because they are alternate
-   renderings of the same section (only one ever shows at a time),
-   unlike the other files in sections/ which are all secondary content
-   shown together underneath whichever of these fires.
+   sections/lead.js — the personalised lead blocks for the three
+   explicit, unambiguous intents. (The default/organic case lives in
+   sections/hero.js; capture/city-capture below handle the two genuinely
+   ambiguous cases.) Every renderer falls back to renderGenericSafe()
+   (sections/hero.js) if its own required content fails canRender().
    ===================================================================== */
-
-function renderCostLead() {
-  const price = APPROVED_CONTENT.price3bhk;
-  if (!canRender(price)) return renderGenericSafe(); // guardrail fallback
-  return `
-  <section class="lead lead-cost">
-    <h1>What will your 3BHK actually cost?</h1>
-    <div class="price-block" data-claim-type="price">
-      <div class="price-range">${escapeHtml(price.lowText)} – ${escapeHtml(price.highText)}</div>
-      <p class="price-label">${escapeHtml(price.label)}</p>
-      <p class="price-disclaimer">${escapeHtml(price.disclaimer)}</p>
-    </div>
-    <a class="btn btn-primary" href="${APPROVED_CONTENT.ctas.calculator.href}">${escapeHtml(APPROVED_CONTENT.ctas.calculator.label)} →</a>
-  </section>`;
-}
 
 function renderCompareLead() {
   const commitments = APPROVED_CONTENT.commitments.filter(canRender);
   if (!commitments.length) return renderGenericSafe();
   return `
-  <section class="lead lead-compare">
+  <section class="lead lead-compare" id="hero">
     <h1>What Anvaya commits to — in writing</h1>
     <p class="sub">No named comparisons. Just what we guarantee, every project.</p>
     <ul class="commit-grid">
       ${commitments.map(c => `<li data-claim-type="${c.claimType}"><strong>${escapeHtml(c.title)}</strong><span>${escapeHtml(c.text)}</span></li>`).join('')}
     </ul>
-    <a class="btn btn-primary" href="${APPROVED_CONTENT.ctas.consultation.href}">${escapeHtml(APPROVED_CONTENT.ctas.consultation.label)} →</a>
+    <a class="btn btn-primary" href="${APPROVED_CONTENT.ctas.primary.href}">${escapeHtml(APPROVED_CONTENT.ctas.primary.label)} →</a>
   </section>`;
 }
 
@@ -44,15 +27,17 @@ function renderDeliveryLead(params) {
   const isYes = result.isServiceable;
   const template = isYes ? svc.yesTemplate : svc.noTemplate;
   const sentence = template.replace('{city}', escapeHtml(result.matchedCity || params.city));
-  const cta = isYes ? APPROVED_CONTENT.ctas.consultation : APPROVED_CONTENT.ctas.notify;
+  const cta = isYes ? APPROVED_CONTENT.ctas.primary : APPROVED_CONTENT.ctas.notify;
   return `
-  <section class="lead lead-delivery ${isYes ? 'yes' : 'no'}">
+  <section class="lead lead-delivery ${isYes ? 'yes' : 'no'}" id="hero">
     <div class="big-answer" data-claim-type="serviceability">${isYes ? 'YES' : 'NOT YET'}</div>
     <p class="delivery-sentence" data-claim-type="serviceability">${sentence}</p>
     <a class="btn btn-primary" href="${cta.href}">${escapeHtml(cta.label)} →</a>
   </section>`;
 }
 
+// Genuinely ambiguous visitor (source=assistant or intent=unknown): skip
+// the pitch, ask once, re-route into whichever of the above then fires.
 function renderCapture() {
   const qc = APPROVED_CONTENT.questionCapture;
   const currentParams = new URLSearchParams(window.location.search);
@@ -62,18 +47,40 @@ function renderCapture() {
     return `<a class="tap-option" href="?${sp.toString()}">${escapeHtml(opt.label)}</a>`;
   }).join('');
   return `
-  <section class="lead lead-capture">
+  <section class="lead lead-capture" id="hero">
     <h1>${escapeHtml(qc.prompt)}</h1>
     <div class="tap-options">${options}</div>
   </section>`;
 }
 
-function renderGenericSafe() {
-  const g = APPROVED_CONTENT.generic;
+// intent=delivery_check arrived without a city: the visitor already told
+// us what they want to know, so ask the one missing thing instead of
+// dropping them onto the generic hero — that would ignore stated intent.
+function renderCityCapture() {
+  const cc = APPROVED_CONTENT.cityCapture;
+  const currentParams = new URLSearchParams(window.location.search);
+  const chips = cc.quickCities.map(city => {
+    const sp = new URLSearchParams(currentParams);
+    sp.set('city', city);
+    return `<a class="tap-option city-chip" href="?${sp.toString()}">${escapeHtml(city)}</a>`;
+  }).join('');
+  // Plain GET form: no backend needed, the browser builds the query
+  // string itself. Hidden fields preserve every other param already set.
+  const hidden = Array.from(currentParams.entries())
+    .filter(([k]) => k !== 'city')
+    .map(([k, v]) => `<input type="hidden" name="${escapeHtml(k)}" value="${escapeHtml(v)}">`)
+    .join('');
   return `
-  <section class="lead lead-generic">
-    <h1>${escapeHtml(g.headline)}</h1>
-    <p class="sub">${escapeHtml(g.sub)}</p>
-    <a class="btn btn-primary" href="${APPROVED_CONTENT.ctas.exactQuote.href}">${escapeHtml(APPROVED_CONTENT.ctas.exactQuote.label)} →</a>
+  <section class="lead lead-city-capture" id="hero">
+    <h1>${escapeHtml(cc.prompt)}</h1>
+    <div class="tap-options">${chips}</div>
+    <form class="city-form" method="GET" action="">
+      ${hidden}
+      <label class="city-form-label" for="city-input">${escapeHtml(cc.inputLabel)}</label>
+      <div class="city-form-row">
+        <input id="city-input" type="text" name="city" placeholder="${escapeHtml(cc.inputPlaceholder)}" autocomplete="address-level2">
+        <button type="submit" class="btn btn-primary btn-inline">${escapeHtml(cc.submitLabel)}</button>
+      </div>
+    </form>
   </section>`;
 }
