@@ -87,11 +87,10 @@ header.topbar{
 .city-strip-text{color:var(--ink-soft);}
 .city-strip-text strong{color:var(--ink);}
 .city-strip-cta{flex:none;font-weight:700;color:var(--accent-dark);text-decoration:none;white-space:nowrap;}
-/* Non-serviceable city: same strip, warning tint, two stacked CTAs
-   instead of "Change city" — see sections/city-strip.js. */
+/* Non-serviceable city: same strip, warning tint, a single "Get delivery
+   cost" CTA instead of "Change city" — see sections/city-strip.js. */
 .city-strip-warn{background:color-mix(in oklch, var(--no) 12%, var(--bg));flex-wrap:wrap;}
 .city-strip-warn .city-strip-cta{color:var(--no);}
-.city-strip-actions{display:flex;gap:.9rem;flex:none;}
 
 main#app{padding-bottom:.5rem;}
 section{padding:2.25rem 1rem;max-width:480px;margin:0 auto;}
@@ -140,6 +139,14 @@ section.hero-photo{padding:0;max-width:none;}
 .lead{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);border-left:4px solid var(--accent);margin:1rem;padding:1.5rem 1.25rem;}
 .hero-minimal{border-left-color:var(--ink-soft);}
 .sub{color:var(--ink-soft);font-size:.95rem;}
+
+/* ?visitor=returning: shortlisted-design thumbnails shown above the
+   "welcome back" copy — see sections/lead.js renderReturningLead(). */
+.returning-shortlist-label{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 .5rem;}
+.returning-shortlist{display:flex;gap:.6rem;margin-bottom:1rem;}
+.returning-shot{margin:0;flex:1;min-width:0;}
+.returning-shot img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:var(--radius);display:block;}
+.returning-shot figcaption{font-size:.68rem;color:var(--ink-soft);margin-top:.3rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
 .commit-grid{list-style:none;margin:.75rem 0;padding:0;display:grid;gap:.6rem;}
 .commit-grid li{background:var(--bg);border-radius:var(--radius);padding:.7rem .8rem;display:flex;flex-direction:column;gap:.15rem;}
@@ -256,24 +263,31 @@ section.hero-photo{padding:0;max-width:none;}
 /* ===================== customize / ask AI ===================== */
 .customize{background:var(--bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 
-/* ===================== why us (comparison cards) ===================== */
+/* ===================== why us (single comparison table) ===================== */
 .why-us{background:var(--bg);}
-.whyus-cards{
-  display:flex;gap:1rem;margin-top:1.25rem;padding:.9rem .1rem 1rem;
-  overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;
+.whyus-table-wrap{
+  margin-top:1.25rem;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--border);border-radius:var(--radius);
 }
-.whyus-card{
-  position:relative;border:1px solid var(--border);background:var(--card);border-radius:var(--radius);
-  padding:1.5rem;flex:0 0 80%;scroll-snap-align:start;
+.whyus-table{width:100%;border-collapse:collapse;background:var(--card);font-size:.78rem;}
+.whyus-table th,.whyus-table td{padding:.7rem .55rem;text-align:left;vertical-align:top;}
+.whyus-table thead th{
+  font-size:.68rem;font-weight:700;color:var(--ink-soft);text-transform:uppercase;
+  letter-spacing:.04em;border-bottom:1px solid var(--border);white-space:nowrap;min-width:100px;
 }
-.whyus-card.featured{border-color:var(--accent);background:var(--card);box-shadow:0 8px 24px -12px color-mix(in oklch, var(--accent) 40%, transparent);}
-.whyus-card h3{font-size:1.05rem;margin-bottom:.9rem;}
-.whyus-rows{margin:0;}
-.whyus-row{display:flex;justify-content:space-between;gap:.75rem;padding:.55rem 0;border-top:1px solid var(--border);}
-.whyus-row:first-child{border-top:none;}
-.whyus-row dt{font-size:.78rem;color:var(--ink-soft);flex:none;}
-.whyus-row dd{margin:0;font-size:.82rem;font-weight:600;text-align:right;}
-.whyus-card.featured .whyus-row dd{color:var(--accent-dark);}
+.whyus-row-head{min-width:80px!important;}
+.whyus-table tbody th{font-weight:600;color:var(--ink-soft);font-size:.74rem;border-top:1px solid var(--border);min-width:80px;}
+.whyus-table tbody td{border-top:1px solid var(--border);font-weight:600;min-width:100px;}
+/* Row-label column stays put while the rest of the table scrolls
+   horizontally — lets a visitor scan one criterion straight across all
+   three brands without losing track of which row they're reading. */
+.whyus-table thead th:first-child,.whyus-table tbody th{position:sticky;left:0;background:var(--card);z-index:1;}
+.whyus-table .whyus-col-featured{background:color-mix(in oklch, var(--accent) 10%, var(--card));color:var(--accent-dark);}
+.whyus-badge{
+  display:inline-block;margin-left:.3rem;background:var(--accent);color:var(--ink-foreground);
+  font-size:.6rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  padding:.15rem .4rem;border-radius:999px;vertical-align:middle;
+}
 .section-note{font-size:.74rem;color:var(--ink-soft);margin-top:.75rem;}
 
 /* ===================== pricing tiers ===================== */
@@ -395,6 +409,17 @@ footer .logo{color:var(--ink-foreground);margin-bottom:.3rem;}
   position:absolute;top:.6rem;right:.7rem;background:none;border:none;font-size:1.3rem;line-height:1;
   color:var(--ink-soft);padding:.3rem;cursor:pointer;
 }
+/* "center" size (see sections/popups.js) — the inactivity popup: bigger
+   and vertically centred in the viewport, meant to actually stop the eye
+   rather than sit quietly at the bottom like the slow-network popup. */
+.modal-overlay-center{align-items:center;padding:1.25rem;}
+.modal-box-lg{
+  max-width:400px;padding:2.25rem 1.75rem;text-align:center;
+  box-shadow:0 20px 50px -12px rgba(0,0,0,.35);
+}
+.modal-box-lg h3{font-size:1.55rem;margin-bottom:.6rem;}
+.modal-box-lg p{font-size:1rem;}
+.modal-box-lg .modal-actions{margin-top:1.25rem;}
 @keyframes modal-fade{from{opacity:0;}to{opacity:1;}}
 @keyframes modal-in{from{transform:translateY(16px);opacity:0;}to{transform:translateY(0);opacity:1;}}
 @media (prefers-reduced-motion: reduce){

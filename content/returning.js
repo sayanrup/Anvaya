@@ -12,6 +12,12 @@ const CONTENT_RETURNING = {
     headline: "Welcome back — hope you liked what we put together.",
     body: "Your design and cost estimate are ready whenever you are. A few clicks and it's locked in.",
     primaryCtaLabel: "Let's finalize my design",
-    secondaryCtaLabel: "Talk to my designer again"
+    secondaryCtaLabel: "Talk to my designer again",
+    shortlistLabel: "Your shortlist",
+    // References real project ids from content/gallery.js (never a new
+    // image/claim invented here) — a small visual reminder of the kind
+    // of designs already shown to this visitor, styled as their
+    // shortlist. See sections/lead.js renderReturningLead().
+    shortlistProjectIds: ["p1", "p4", "p5"]
   }
 };

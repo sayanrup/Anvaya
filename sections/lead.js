@@ -12,8 +12,26 @@
 function renderReturningLead() {
   const r = APPROVED_CONTENT.returning;
   if (!r) return renderGenericSafe();
+
+  // Shows real gallery project photos, referenced by id from approved
+  // content — never a new image or a claim that these are literally
+  // this visitor's own uploads, just a visual reminder of the shortlist.
+  const shortlist = (r.shortlistProjectIds || [])
+    .map(id => APPROVED_CONTENT.projects.find(p => p.id === id))
+    .filter(p => p && p.images && p.images[0]);
+  const shortlistHtml = shortlist.length ? `
+    <p class="returning-shortlist-label">${escapeHtml(r.shortlistLabel || '')}</p>
+    <div class="returning-shortlist">
+      ${shortlist.map(p => `
+        <figure class="returning-shot">
+          <img src="${escapeHtml(p.images[0])}" alt="${escapeHtml(p.title)}" loading="lazy">
+          <figcaption>${escapeHtml(p.title)}</figcaption>
+        </figure>`).join('')}
+    </div>` : '';
+
   return `
   <section class="lead lead-returning" id="hero">
+    ${shortlistHtml}
     <p class="kicker">${escapeHtml(r.kicker)}</p>
     <h1>${escapeHtml(r.headline)}</h1>
     <p class="sub">${escapeHtml(r.body)}</p>

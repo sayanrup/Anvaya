@@ -24,7 +24,8 @@
     window.showModalPopup({
       title: copy.title,
       body: copy.body,
-      actions: [{ label: cta.label, href: cta.href }]
+      actions: [{ label: cta.label, href: cta.href }],
+      size: 'center' // bigger, centred in the viewport — meant to actually stop the eye
     });
   }
 

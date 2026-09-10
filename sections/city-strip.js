@@ -9,10 +9,11 @@
      happen).
    - `city` present & serviceable → "detected" wording + "Change city"
      (re-enters the existing city-capture flow, intent=delivery_check).
-   - `city` present & NOT serviceable → a warning variant asking for
-     delivery cost or a callback instead, using the same serviceability
-     boolean the delivery_check lead already uses (this page has no real
-     geo-distance check, only the approved cities list).
+   - `city` present & NOT serviceable → a warning variant with a single
+     "Get delivery cost" CTA (kept to one action in this compact top
+     strip, unlike the fuller delivery_check lead further down), using
+     the same serviceability boolean that lead already uses (this page
+     has no real geo-distance check, only the approved cities list).
    ===================================================================== */
 function renderCityStrip() {
   const cs = APPROVED_CONTENT.cityStrip;
@@ -34,15 +35,11 @@ function renderCityStrip() {
 
     if (!result.isServiceable) {
       const deliveryCta = APPROVED_CONTENT.ctas.deliveryCost;
-      const callCta = APPROVED_CONTENT.ctas.callback;
       const [before, after] = splitTemplate(cs.notServiceableTemplate);
       return `
       <div class="city-strip city-strip-warn" data-claim-type="serviceability">
         <span class="city-strip-text">${escapeHtml(before)}<strong>${escapeHtml(params.city)}</strong>${escapeHtml(after || '')}</span>
-        <span class="city-strip-actions">
-          <a class="city-strip-cta" href="${escapeHtml(deliveryCta.href)}">${escapeHtml(deliveryCta.label)}</a>
-          <a class="city-strip-cta" href="${escapeHtml(callCta.href)}">${escapeHtml(callCta.label)}</a>
-        </span>
+        <a class="city-strip-cta" href="${escapeHtml(deliveryCta.href)}">${escapeHtml(deliveryCta.label)}</a>
       </div>`;
     }
 

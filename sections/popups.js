@@ -15,13 +15,18 @@
     try { sessionStorage.setItem(SHOWN_KEY, '1'); } catch (_) { /* ignore */ }
   }
 
-  // opts: { title, body, actions: [{ label, href }, ...] }
+  // opts: { title, body, actions: [{ label, href }, ...], size }
+  // size: "sheet" (default) — compact, bottom-anchored, for a light-touch
+  // interruption like the slow-network popup. "center" — bigger, centred
+  // in the middle of the viewport, for a nudge meant to actually stop the
+  // eye (the inactivity popup).
   function showModalPopup(opts) {
     if (document.querySelector('.modal-overlay')) return; // one on screen at a time
     markPopupShown();
 
+    const centered = opts.size === 'center';
     const overlay = document.createElement('div');
-    overlay.className = 'modal-overlay';
+    overlay.className = 'modal-overlay' + (centered ? ' modal-overlay-center' : '');
     overlay.setAttribute('role', 'dialog');
     overlay.setAttribute('aria-modal', 'true');
     overlay.setAttribute('aria-label', opts.title || '');
@@ -31,7 +36,7 @@
     ).join('');
 
     overlay.innerHTML = `
-      <div class="modal-box">
+      <div class="modal-box${centered ? ' modal-box-lg' : ''}">
         <button type="button" class="modal-close" aria-label="Close">×</button>
         <h3>${escapeHtml(opts.title || '')}</h3>
         <p>${escapeHtml(opts.body || '')}</p>
